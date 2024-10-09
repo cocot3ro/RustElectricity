@@ -3,8 +3,14 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
 
+    alias(libs.plugins.ksp)
+
+    alias(libs.plugins.hilt)
+
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
+
+    alias(libs.plugins.kotlinx.serialization)
 }
 
 android {
@@ -31,11 +37,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
     buildFeatures {
         compose = true
@@ -65,4 +71,16 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.crashlytics)
     implementation(libs.firebase.analytics)
+
+    // Dagger Hilt
+    implementation(libs.dagger.hilt)
+    ksp(libs.dagger.hilt.compiler)
+    implementation(libs.dagger.hilt.navigation)
+
+    // Coil
+    implementation(libs.coil)
+
+    // Navigation Compose
+    implementation(libs.navigation.compose)
+    implementation(libs.kotlinx.serialization.json)
 }
