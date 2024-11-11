@@ -22,7 +22,7 @@ googleServices = "4.4.2"
 firebaseBom = "33.5.1"
 navigationCompose = "2.8.3"
 kotlinxSerialization = "1.7.3"
-coilCompose = "2.7.0"
+coilCompose = "3.0.1"
 crashlytics = "3.0.2"
 
 
@@ -58,7 +58,7 @@ firebase-analytics = { module = "com.google.firebase:firebase-analytics-ktx" }
 firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics-ktx" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
-coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
+coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
 
 
 [plugins]
