@@ -5,18 +5,12 @@ import com.cocot3ro.rustelectricity.core.RustObjectType
 import com.cocot3ro.rustelectricity.domain.model.Researcheable
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 
-@ConsistentCopyVisibility
-data class ItemRearSeatsVehicleModule private constructor(
-    override val type: RustObjectType,
-    override val name: Int,
-    override val image: Int,
-    override val isBlueprint: Boolean
-) : RustObjectItem(), Researcheable {
+data class ItemRearSeatsVehicleModule(
+    override val isBlueprint: Boolean = false
+) : RustObjectItem(
+    type = RustObjectType.ITEM_REAR_SEATS_VEHICLE_MODULE,
+    name = R.string.item_rear_seats_vehicle_module,
+    image = R.drawable.item_rear_seats_vehicle_module
+), Researcheable {
 
-    constructor(isBlueprint: Boolean = false) : this(
-        type = RustObjectType.ITEM_REAR_SEATS_VEHICLE_MODULE,
-        name = R.string.item_rear_seats_vehicle_module,
-        image = R.drawable.item_rear_seats_vehicle_module,
-        isBlueprint = isBlueprint
-    )
 }

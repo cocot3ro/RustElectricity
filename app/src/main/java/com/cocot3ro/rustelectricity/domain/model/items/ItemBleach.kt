@@ -4,16 +4,10 @@ import com.cocot3ro.rustelectricity.R
 import com.cocot3ro.rustelectricity.core.RustObjectType
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 
-@ConsistentCopyVisibility
-data class ItemBleach private constructor(
-    override val type: RustObjectType,
-    override val name: Int,
-    override val image: Int
-) : RustObjectItem() {
+data object ItemBleach : RustObjectItem(
+    type = RustObjectType.ITEM_BLEACH,
+    name = R.string.item_bleach,
+    image = R.drawable.item_bleach
+) {
 
-    constructor() : this(
-        type = RustObjectType.ITEM_BLEACH,
-        name = R.string.item_bleach,
-        image = R.drawable.item_bleach
-    )
 }

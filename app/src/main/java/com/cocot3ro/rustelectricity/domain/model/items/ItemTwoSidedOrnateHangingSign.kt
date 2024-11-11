@@ -4,16 +4,10 @@ import com.cocot3ro.rustelectricity.R
 import com.cocot3ro.rustelectricity.core.RustObjectType
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 
-@ConsistentCopyVisibility
-data class ItemTwoSidedOrnateHangingSign private constructor(
-    override val type: RustObjectType,
-    override val name: Int,
-    override val image: Int
-) : RustObjectItem() {
+data object ItemTwoSidedOrnateHangingSign : RustObjectItem(
+    type = RustObjectType.ITEM_TWO_SIDED_ORNATE_HANGING_SIGN,
+    name = R.string.item_two_sided_ornate_hanging_sign,
+    image = R.drawable.item_two_sided_ornate_hanging_sign
+) {
 
-    constructor() : this(
-        type = RustObjectType.ITEM_TWO_SIDED_ORNATE_HANGING_SIGN,
-        name = R.string.item_two_sided_ornate_hanging_sign,
-        image = R.drawable.item_two_sided_ornate_hanging_sign
-    )
 }

@@ -4,16 +4,10 @@ import com.cocot3ro.rustelectricity.R
 import com.cocot3ro.rustelectricity.core.RustObjectType
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 
-@ConsistentCopyVisibility
-data class ItemMushroom private constructor(
-    override val type: RustObjectType,
-    override val name: Int,
-    override val image: Int
-) : RustObjectItem() {
+data object ItemMushroom : RustObjectItem(
+    type = RustObjectType.ITEM_MUSHROOM,
+    name = R.string.item_mushroom,
+    image = R.drawable.item_mushroom
+) {
 
-    constructor() : this(
-        type = RustObjectType.ITEM_MUSHROOM,
-        name = R.string.item_mushroom,
-        image = R.drawable.item_mushroom
-    )
 }

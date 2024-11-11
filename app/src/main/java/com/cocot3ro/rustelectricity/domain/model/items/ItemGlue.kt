@@ -4,16 +4,10 @@ import com.cocot3ro.rustelectricity.R
 import com.cocot3ro.rustelectricity.core.RustObjectType
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 
-@ConsistentCopyVisibility
-data class ItemGlue private constructor(
-    override val type: RustObjectType,
-    override val name: Int,
-    override val image: Int
-) : RustObjectItem() {
+data object ItemGlue : RustObjectItem(
+    type = RustObjectType.ITEM_GLUE,
+    name = R.string.item_glue,
+    image = R.drawable.item_glue
+) {
 
-    constructor() : this(
-        type = RustObjectType.ITEM_GLUE,
-        name = R.string.item_glue,
-        image = R.drawable.item_glue
-    )
 }

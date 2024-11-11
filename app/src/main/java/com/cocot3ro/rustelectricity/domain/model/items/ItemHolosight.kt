@@ -5,18 +5,12 @@ import com.cocot3ro.rustelectricity.core.RustObjectType
 import com.cocot3ro.rustelectricity.domain.model.Researcheable
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 
-@ConsistentCopyVisibility
-data class ItemHolosight private constructor(
-    override val type: RustObjectType,
-    override val name: Int,
-    override val image: Int,
-    override val isBlueprint: Boolean
-) : RustObjectItem(), Researcheable {
+data class ItemHolosight(
+    override val isBlueprint: Boolean = false
+) : RustObjectItem(
+    type = RustObjectType.ITEM_HOLOSIGHT,
+    name = R.string.item_holosight,
+    image = R.drawable.item_holosight
+), Researcheable {
 
-    constructor(isBlueprint: Boolean = false) : this(
-        type = RustObjectType.ITEM_HOLOSIGHT,
-        name = R.string.item_holosight,
-        image = R.drawable.item_holosight,
-        isBlueprint = isBlueprint
-    )
 }

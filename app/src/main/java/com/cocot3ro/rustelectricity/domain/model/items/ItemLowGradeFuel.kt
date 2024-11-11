@@ -5,18 +5,12 @@ import com.cocot3ro.rustelectricity.core.RustObjectType
 import com.cocot3ro.rustelectricity.domain.model.Researcheable
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 
-@ConsistentCopyVisibility
-data class ItemLowGradeFuel private constructor(
-    override val type: RustObjectType,
-    override val name: Int,
-    override val image: Int,
-    override val isBlueprint: Boolean
-) : RustObjectItem(), Researcheable {
+data class ItemLowGradeFuel(
+    override val isBlueprint: Boolean = false
+) : RustObjectItem(
+    type = RustObjectType.ITEM_LOW_GRADE_FUEL,
+    name = R.string.item_low_grade_fuel,
+    image = R.drawable.item_low_grade_fuel
+), Researcheable {
 
-    constructor(isBlueprint: Boolean = false) : this(
-        type = RustObjectType.ITEM_LOW_GRADE_FUEL,
-        name = R.string.item_low_grade_fuel,
-        image = R.drawable.item_low_grade_fuel,
-        isBlueprint = isBlueprint
-    )
 }

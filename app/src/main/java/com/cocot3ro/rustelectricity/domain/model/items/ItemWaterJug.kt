@@ -4,16 +4,10 @@ import com.cocot3ro.rustelectricity.R
 import com.cocot3ro.rustelectricity.core.RustObjectType
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 
-@ConsistentCopyVisibility
-data class ItemWaterJug private constructor(
-    override val type: RustObjectType,
-    override val name: Int,
-    override val image: Int
-) : RustObjectItem() {
+data object ItemWaterJug : RustObjectItem(
+    type = RustObjectType.ITEM_WATER_JUG,
+    name = R.string.item_water_jug,
+    image = R.drawable.item_water_jug
+) {
 
-    constructor() : this(
-        type = RustObjectType.ITEM_WATER_JUG,
-        name = R.string.item_water_jug,
-        image = R.drawable.item_water_jug
-    )
 }

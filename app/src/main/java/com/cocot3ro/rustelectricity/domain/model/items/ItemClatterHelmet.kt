@@ -4,16 +4,10 @@ import com.cocot3ro.rustelectricity.R
 import com.cocot3ro.rustelectricity.core.RustObjectType
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 
-@ConsistentCopyVisibility
-data class ItemClatterHelmet private constructor(
-    override val type: RustObjectType,
-    override val name: Int,
-    override val image: Int
-) : RustObjectItem() {
+data object ItemClatterHelmet : RustObjectItem(
+    type = RustObjectType.ITEM_CLATTER_HELMET,
+    name = R.string.item_clatter_helmet,
+    image = R.drawable.item_clatter_helmet
+) {
 
-    constructor() : this(
-        type = RustObjectType.ITEM_CLATTER_HELMET,
-        name = R.string.item_clatter_helmet,
-        image = R.drawable.item_clatter_helmet
-    )
 }

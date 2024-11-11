@@ -4,16 +4,10 @@ import com.cocot3ro.rustelectricity.R
 import com.cocot3ro.rustelectricity.core.RustObjectType
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 
-@ConsistentCopyVisibility
-data class ItemSpookySpeaker private constructor(
-    override val type: RustObjectType,
-    override val name: Int,
-    override val image: Int
-) : RustObjectItem() {
+data object ItemSpookySpeaker : RustObjectItem(
+    type = RustObjectType.ITEM_SPOOKY_SPEAKER,
+    name = R.string.item_spooky_speaker,
+    image = R.drawable.item_spooky_speaker
+) {
 
-    constructor() : this(
-        type = RustObjectType.ITEM_SPOOKY_SPEAKER,
-        name = R.string.item_spooky_speaker,
-        image = R.drawable.item_spooky_speaker
-    )
 }

@@ -5,18 +5,12 @@ import com.cocot3ro.rustelectricity.core.RustObjectType
 import com.cocot3ro.rustelectricity.domain.model.Researcheable
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 
-@ConsistentCopyVisibility
-data class ItemIncendiaryPistolBullet private constructor(
-    override val type: RustObjectType,
-    override val name: Int,
-    override val image: Int,
-    override val isBlueprint: Boolean
-) : RustObjectItem(), Researcheable {
+data class ItemIncendiaryPistolBullet(
+    override val isBlueprint: Boolean = false
+) : RustObjectItem(
+    type = RustObjectType.ITEM_INCENDIARY_PISTOL_BULLET,
+    name = R.string.item_incendiary_pistol_bullet,
+    image = R.drawable.item_incendiary_pistol_bullet
+), Researcheable {
 
-    constructor(isBlueprint: Boolean = false) : this(
-        type = RustObjectType.ITEM_INCENDIARY_PISTOL_BULLET,
-        name = R.string.item_incendiary_pistol_bullet,
-        image = R.drawable.item_incendiary_pistol_bullet,
-        isBlueprint = isBlueprint
-    )
 }

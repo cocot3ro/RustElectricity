@@ -5,18 +5,12 @@ import com.cocot3ro.rustelectricity.core.RustObjectType
 import com.cocot3ro.rustelectricity.domain.model.Researcheable
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 
-@ConsistentCopyVisibility
-data class ItemFluidSwitchAndPump private constructor(
-    override val type: RustObjectType,
-    override val name: Int,
-    override val image: Int,
-    override val isBlueprint: Boolean
-) : RustObjectItem(), Researcheable {
+data class ItemFluidSwitchAndPump(
+    override val isBlueprint: Boolean = false
+) : RustObjectItem(
+    type = RustObjectType.ITEM_FLUID_SWITCH_AND_PUMP,
+    name = R.string.item_fluid_switch_and_pump,
+    image = R.drawable.item_fluid_switch_and_pump
+), Researcheable {
 
-    constructor(isBlueprint: Boolean = false) : this(
-        type = RustObjectType.ITEM_FLUID_SWITCH_AND_PUMP,
-        name = R.string.item_fluid_switch_and_pump,
-        image = R.drawable.item_fluid_switch_and_pump,
-        isBlueprint = isBlueprint
-    )
 }

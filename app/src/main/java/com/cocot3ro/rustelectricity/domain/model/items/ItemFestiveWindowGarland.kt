@@ -4,16 +4,10 @@ import com.cocot3ro.rustelectricity.R
 import com.cocot3ro.rustelectricity.core.RustObjectType
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 
-@ConsistentCopyVisibility
-data class ItemFestiveWindowGarland private constructor(
-    override val type: RustObjectType,
-    override val name: Int,
-    override val image: Int
-) : RustObjectItem() {
+data object ItemFestiveWindowGarland : RustObjectItem(
+    type = RustObjectType.ITEM_FESTIVE_WINDOW_GARLAND,
+    name = R.string.item_festive_window_garland,
+    image = R.drawable.item_festive_window_garland
+) {
 
-    constructor() : this(
-        type = RustObjectType.ITEM_FESTIVE_WINDOW_GARLAND,
-        name = R.string.item_festive_window_garland,
-        image = R.drawable.item_festive_window_garland
-    )
 }

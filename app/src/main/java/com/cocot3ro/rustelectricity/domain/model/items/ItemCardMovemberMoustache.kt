@@ -4,16 +4,10 @@ import com.cocot3ro.rustelectricity.R
 import com.cocot3ro.rustelectricity.core.RustObjectType
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 
-@ConsistentCopyVisibility
-data class ItemCardMovemberMoustache private constructor(
-    override val type: RustObjectType,
-    override val name: Int,
-    override val image: Int
-) : RustObjectItem() {
+data object ItemCardMovemberMoustache : RustObjectItem(
+    type = RustObjectType.ITEM_CARD_MOVEMBER_MOUSTACHE,
+    name = R.string.item_card_movember_moustache,
+    image = R.drawable.item_card_movember_moustache
+) {
 
-    constructor() : this(
-        type = RustObjectType.ITEM_CARD_MOVEMBER_MOUSTACHE,
-        name = R.string.item_card_movember_moustache,
-        image = R.drawable.item_card_movember_moustache
-    )
 }

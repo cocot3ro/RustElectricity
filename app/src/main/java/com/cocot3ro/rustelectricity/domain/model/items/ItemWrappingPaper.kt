@@ -4,16 +4,10 @@ import com.cocot3ro.rustelectricity.R
 import com.cocot3ro.rustelectricity.core.RustObjectType
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 
-@ConsistentCopyVisibility
-data class ItemWrappingPaper private constructor(
-    override val type: RustObjectType,
-    override val name: Int,
-    override val image: Int
-) : RustObjectItem() {
+data object ItemWrappingPaper : RustObjectItem(
+    type = RustObjectType.ITEM_WRAPPING_PAPER,
+    name = R.string.item_wrapping_paper,
+    image = R.drawable.item_wrapping_paper
+) {
 
-    constructor() : this(
-        type = RustObjectType.ITEM_WRAPPING_PAPER,
-        name = R.string.item_wrapping_paper,
-        image = R.drawable.item_wrapping_paper
-    )
 }

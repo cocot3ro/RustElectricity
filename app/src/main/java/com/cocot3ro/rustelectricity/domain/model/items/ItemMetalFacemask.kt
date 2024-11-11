@@ -5,18 +5,12 @@ import com.cocot3ro.rustelectricity.core.RustObjectType
 import com.cocot3ro.rustelectricity.domain.model.Researcheable
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 
-@ConsistentCopyVisibility
-data class ItemMetalFacemask private constructor(
-    override val type: RustObjectType,
-    override val name: Int,
-    override val image: Int,
-    override val isBlueprint: Boolean
-) : RustObjectItem(), Researcheable {
+data class ItemMetalFacemask(
+    override val isBlueprint: Boolean = false
+) : RustObjectItem(
+    type = RustObjectType.ITEM_METAL_FACEMASK,
+    name = R.string.item_metal_facemask,
+    image = R.drawable.item_metal_facemask
+), Researcheable {
 
-    constructor(isBlueprint: Boolean = false) : this(
-        type = RustObjectType.ITEM_METAL_FACEMASK,
-        name = R.string.item_metal_facemask,
-        image = R.drawable.item_metal_facemask,
-        isBlueprint = isBlueprint
-    )
 }

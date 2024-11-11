@@ -4,16 +4,10 @@ import com.cocot3ro.rustelectricity.R
 import com.cocot3ro.rustelectricity.core.RustObjectType
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 
-@ConsistentCopyVisibility
-data class ItemGrub private constructor(
-    override val type: RustObjectType,
-    override val name: Int,
-    override val image: Int
-) : RustObjectItem() {
+data object ItemGrub : RustObjectItem(
+    type = RustObjectType.ITEM_GRUB,
+    name = R.string.item_grub,
+    image = R.drawable.item_grub
+) {
 
-    constructor() : this(
-        type = RustObjectType.ITEM_GRUB,
-        name = R.string.item_grub,
-        image = R.drawable.item_grub
-    )
 }

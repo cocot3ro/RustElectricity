@@ -4,16 +4,10 @@ import com.cocot3ro.rustelectricity.R
 import com.cocot3ro.rustelectricity.core.RustObjectType
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 
-@ConsistentCopyVisibility
-data class ItemM39Rifle private constructor(
-    override val type: RustObjectType,
-    override val name: Int,
-    override val image: Int
-) : RustObjectItem() {
+data object ItemM39Rifle : RustObjectItem(
+    type = RustObjectType.ITEM_M39_RIFLE,
+    name = R.string.item_m39_rifle,
+    image = R.drawable.item_m39_rifle
+) {
 
-    constructor() : this(
-        type = RustObjectType.ITEM_M39_RIFLE,
-        name = R.string.item_m39_rifle,
-        image = R.drawable.item_m39_rifle
-    )
 }

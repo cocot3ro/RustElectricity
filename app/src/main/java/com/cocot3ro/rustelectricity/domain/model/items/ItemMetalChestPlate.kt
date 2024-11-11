@@ -5,18 +5,12 @@ import com.cocot3ro.rustelectricity.core.RustObjectType
 import com.cocot3ro.rustelectricity.domain.model.Researcheable
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 
-@ConsistentCopyVisibility
-data class ItemMetalChestPlate private constructor(
-    override val type: RustObjectType,
-    override val name: Int,
-    override val image: Int,
-    override val isBlueprint: Boolean
-) : RustObjectItem(), Researcheable {
+data class ItemMetalChestPlate(
+    override val isBlueprint: Boolean = false
+) : RustObjectItem(
+    type = RustObjectType.ITEM_METAL_CHEST_PLATE,
+    name = R.string.item_metal_chest_plate,
+    image = R.drawable.item_metal_chest_plate
+), Researcheable {
 
-    constructor(isBlueprint: Boolean = false) : this(
-        type = RustObjectType.ITEM_METAL_CHEST_PLATE,
-        name = R.string.item_metal_chest_plate,
-        image = R.drawable.item_metal_chest_plate,
-        isBlueprint = isBlueprint
-    )
 }

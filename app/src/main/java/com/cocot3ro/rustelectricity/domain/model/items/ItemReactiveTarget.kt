@@ -5,18 +5,12 @@ import com.cocot3ro.rustelectricity.core.RustObjectType
 import com.cocot3ro.rustelectricity.domain.model.Researcheable
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 
-@ConsistentCopyVisibility
-data class ItemReactiveTarget private constructor(
-    override val type: RustObjectType,
-    override val name: Int,
-    override val image: Int,
-    override val isBlueprint: Boolean
-) : RustObjectItem(), Researcheable {
+data class ItemReactiveTarget(
+    override val isBlueprint: Boolean = false
+) : RustObjectItem(
+    type = RustObjectType.ITEM_REACTIVE_TARGET,
+    name = R.string.item_reactive_target,
+    image = R.drawable.item_reactive_target
+), Researcheable {
 
-    constructor(isBlueprint: Boolean = false) : this(
-        type = RustObjectType.ITEM_REACTIVE_TARGET,
-        name = R.string.item_reactive_target,
-        image = R.drawable.item_reactive_target,
-        isBlueprint = isBlueprint
-    )
 }

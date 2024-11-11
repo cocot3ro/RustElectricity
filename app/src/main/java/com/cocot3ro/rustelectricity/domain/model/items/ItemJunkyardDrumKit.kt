@@ -5,18 +5,12 @@ import com.cocot3ro.rustelectricity.core.RustObjectType
 import com.cocot3ro.rustelectricity.domain.model.Researcheable
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 
-@ConsistentCopyVisibility
-data class ItemJunkyardDrumKit private constructor(
-    override val type: RustObjectType,
-    override val name: Int,
-    override val image: Int,
-    override val isBlueprint: Boolean
-) : RustObjectItem(), Researcheable {
+data class ItemJunkyardDrumKit(
+    override val isBlueprint: Boolean = false
+) : RustObjectItem(
+    type = RustObjectType.ITEM_JUNKYARD_DRUM_KIT,
+    name = R.string.item_junkyard_drum_kit,
+    image = R.drawable.item_junkyard_drum_kit
+), Researcheable {
 
-    constructor(isBlueprint: Boolean = false) : this(
-        type = RustObjectType.ITEM_JUNKYARD_DRUM_KIT,
-        name = R.string.item_junkyard_drum_kit,
-        image = R.drawable.item_junkyard_drum_kit,
-        isBlueprint = isBlueprint
-    )
 }

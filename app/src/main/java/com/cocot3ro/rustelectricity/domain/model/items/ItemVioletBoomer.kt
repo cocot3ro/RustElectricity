@@ -4,16 +4,10 @@ import com.cocot3ro.rustelectricity.R
 import com.cocot3ro.rustelectricity.core.RustObjectType
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 
-@ConsistentCopyVisibility
-data class ItemVioletBoomer private constructor(
-    override val type: RustObjectType,
-    override val name: Int,
-    override val image: Int
-) : RustObjectItem() {
+data object ItemVioletBoomer : RustObjectItem(
+    type = RustObjectType.ITEM_VIOLET_BOOMER,
+    name = R.string.item_violet_boomer,
+    image = R.drawable.item_violet_boomer
+) {
 
-    constructor() : this(
-        type = RustObjectType.ITEM_VIOLET_BOOMER,
-        name = R.string.item_violet_boomer,
-        image = R.drawable.item_violet_boomer
-    )
 }

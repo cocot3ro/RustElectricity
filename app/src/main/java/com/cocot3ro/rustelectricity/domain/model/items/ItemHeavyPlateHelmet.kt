@@ -5,18 +5,12 @@ import com.cocot3ro.rustelectricity.core.RustObjectType
 import com.cocot3ro.rustelectricity.domain.model.Researcheable
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 
-@ConsistentCopyVisibility
-data class ItemHeavyPlateHelmet private constructor(
-    override val type: RustObjectType,
-    override val name: Int,
-    override val image: Int,
-    override val isBlueprint: Boolean
-) : RustObjectItem(), Researcheable {
+data class ItemHeavyPlateHelmet(
+    override val isBlueprint: Boolean = false
+) : RustObjectItem(
+    type = RustObjectType.ITEM_HEAVY_PLATE_HELMET,
+    name = R.string.item_heavy_plate_helmet,
+    image = R.drawable.item_heavy_plate_helmet
+), Researcheable {
 
-    constructor(isBlueprint: Boolean = false) : this(
-        type = RustObjectType.ITEM_HEAVY_PLATE_HELMET,
-        name = R.string.item_heavy_plate_helmet,
-        image = R.drawable.item_heavy_plate_helmet,
-        isBlueprint = isBlueprint
-    )
 }

@@ -5,18 +5,12 @@ import com.cocot3ro.rustelectricity.core.RustObjectType
 import com.cocot3ro.rustelectricity.domain.model.Researcheable
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 
-@ConsistentCopyVisibility
-data class ItemJerryCanGuitar private constructor(
-    override val type: RustObjectType,
-    override val name: Int,
-    override val image: Int,
-    override val isBlueprint: Boolean
-) : RustObjectItem(), Researcheable {
+data class ItemJerryCanGuitar(
+    override val isBlueprint: Boolean = false
+) : RustObjectItem(
+    type = RustObjectType.ITEM_JERRY_CAN_GUITAR,
+    name = R.string.item_jerry_can_guitar,
+    image = R.drawable.item_jerry_can_guitar
+), Researcheable {
 
-    constructor(isBlueprint: Boolean = false) : this(
-        type = RustObjectType.ITEM_JERRY_CAN_GUITAR,
-        name = R.string.item_jerry_can_guitar,
-        image = R.drawable.item_jerry_can_guitar,
-        isBlueprint = isBlueprint
-    )
 }

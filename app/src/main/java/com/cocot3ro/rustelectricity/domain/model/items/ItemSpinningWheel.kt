@@ -5,18 +5,12 @@ import com.cocot3ro.rustelectricity.core.RustObjectType
 import com.cocot3ro.rustelectricity.domain.model.Researcheable
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 
-@ConsistentCopyVisibility
-data class ItemSpinningWheel private constructor(
-    override val type: RustObjectType,
-    override val name: Int,
-    override val image: Int,
-    override val isBlueprint: Boolean
-) : RustObjectItem(), Researcheable {
+data class ItemSpinningWheel(
+    override val isBlueprint: Boolean = false
+) : RustObjectItem(
+    type = RustObjectType.ITEM_SPINNING_WHEEL,
+    name = R.string.item_spinning_wheel,
+    image = R.drawable.item_spinning_wheel
+), Researcheable {
 
-    constructor(isBlueprint: Boolean = false) : this(
-        type = RustObjectType.ITEM_SPINNING_WHEEL,
-        name = R.string.item_spinning_wheel,
-        image = R.drawable.item_spinning_wheel,
-        isBlueprint = isBlueprint
-    )
 }

@@ -5,18 +5,12 @@ import com.cocot3ro.rustelectricity.core.RustObjectType
 import com.cocot3ro.rustelectricity.domain.model.Researcheable
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 
-@ConsistentCopyVisibility
-data class ItemHighQualityValves private constructor(
-    override val type: RustObjectType,
-    override val name: Int,
-    override val image: Int,
-    override val isBlueprint: Boolean
-) : RustObjectItem(), Researcheable {
+data class ItemHighQualityValves(
+    override val isBlueprint: Boolean = false
+) : RustObjectItem(
+    type = RustObjectType.ITEM_HIGH_QUALITY_VALVES,
+    name = R.string.item_high_quality_valves,
+    image = R.drawable.item_high_quality_valves
+), Researcheable {
 
-    constructor(isBlueprint: Boolean = false) : this(
-        type = RustObjectType.ITEM_HIGH_QUALITY_VALVES,
-        name = R.string.item_high_quality_valves,
-        image = R.drawable.item_high_quality_valves,
-        isBlueprint = isBlueprint
-    )
 }

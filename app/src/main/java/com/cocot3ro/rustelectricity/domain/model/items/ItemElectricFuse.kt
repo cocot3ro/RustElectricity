@@ -4,16 +4,10 @@ import com.cocot3ro.rustelectricity.R
 import com.cocot3ro.rustelectricity.core.RustObjectType
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 
-@ConsistentCopyVisibility
-data class ItemElectricFuse private constructor(
-    override val type: RustObjectType,
-    override val name: Int,
-    override val image: Int
-) : RustObjectItem() {
+data object ItemElectricFuse : RustObjectItem(
+    type = RustObjectType.ITEM_ELECTRIC_FUSE,
+    name = R.string.item_electric_fuse,
+    image = R.drawable.item_electric_fuse
+) {
 
-    constructor() : this(
-        type = RustObjectType.ITEM_ELECTRIC_FUSE,
-        name = R.string.item_electric_fuse,
-        image = R.drawable.item_electric_fuse
-    )
 }

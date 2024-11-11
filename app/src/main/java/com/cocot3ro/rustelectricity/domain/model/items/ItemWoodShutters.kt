@@ -5,18 +5,12 @@ import com.cocot3ro.rustelectricity.core.RustObjectType
 import com.cocot3ro.rustelectricity.domain.model.Researcheable
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 
-@ConsistentCopyVisibility
-data class ItemWoodShutters private constructor(
-    override val type: RustObjectType,
-    override val name: Int,
-    override val image: Int,
-    override val isBlueprint: Boolean
-) : RustObjectItem(), Researcheable {
+data class ItemWoodShutters(
+    override val isBlueprint: Boolean = false
+) : RustObjectItem(
+    type = RustObjectType.ITEM_WOOD_SHUTTERS,
+    name = R.string.item_wood_shutters,
+    image = R.drawable.item_wood_shutters
+), Researcheable {
 
-    constructor(isBlueprint: Boolean = false) : this(
-        type = RustObjectType.ITEM_WOOD_SHUTTERS,
-        name = R.string.item_wood_shutters,
-        image = R.drawable.item_wood_shutters,
-        isBlueprint = isBlueprint
-    )
 }

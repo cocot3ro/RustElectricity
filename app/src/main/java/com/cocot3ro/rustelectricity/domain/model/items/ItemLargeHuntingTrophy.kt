@@ -4,16 +4,10 @@ import com.cocot3ro.rustelectricity.R
 import com.cocot3ro.rustelectricity.core.RustObjectType
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 
-@ConsistentCopyVisibility
-data class ItemLargeHuntingTrophy private constructor(
-    override val type: RustObjectType,
-    override val name: Int,
-    override val image: Int
-) : RustObjectItem() {
+data object ItemLargeHuntingTrophy : RustObjectItem(
+    type = RustObjectType.ITEM_LARGE_HUNTING_TROPHY,
+    name = R.string.item_large_hunting_trophy,
+    image = R.drawable.item_large_hunting_trophy
+) {
 
-    constructor() : this(
-        type = RustObjectType.ITEM_LARGE_HUNTING_TROPHY,
-        name = R.string.item_large_hunting_trophy,
-        image = R.drawable.item_large_hunting_trophy
-    )
 }

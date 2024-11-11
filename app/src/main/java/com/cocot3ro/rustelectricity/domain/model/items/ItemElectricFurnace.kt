@@ -5,18 +5,12 @@ import com.cocot3ro.rustelectricity.core.RustObjectType
 import com.cocot3ro.rustelectricity.domain.model.Researcheable
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 
-@ConsistentCopyVisibility
-data class ItemElectricFurnace private constructor(
-    override val type: RustObjectType,
-    override val name: Int,
-    override val image: Int,
-    override val isBlueprint: Boolean
-) : RustObjectItem(), Researcheable {
+data class ItemElectricFurnace(
+    override val isBlueprint: Boolean = false
+) : RustObjectItem(
+    type = RustObjectType.ITEM_ELECTRIC_FURNACE,
+    name = R.string.item_electric_furnace,
+    image = R.drawable.item_electric_furnace
+), Researcheable {
 
-    constructor(isBlueprint: Boolean = false) : this(
-        type = RustObjectType.ITEM_ELECTRIC_FURNACE,
-        name = R.string.item_electric_furnace,
-        image = R.drawable.item_electric_furnace,
-        isBlueprint = isBlueprint
-    )
 }

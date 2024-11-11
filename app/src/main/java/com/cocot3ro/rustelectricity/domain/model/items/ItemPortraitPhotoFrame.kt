@@ -5,18 +5,12 @@ import com.cocot3ro.rustelectricity.core.RustObjectType
 import com.cocot3ro.rustelectricity.domain.model.Researcheable
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 
-@ConsistentCopyVisibility
-data class ItemPortraitPhotoFrame private constructor(
-    override val type: RustObjectType,
-    override val name: Int,
-    override val image: Int,
-    override val isBlueprint: Boolean
-) : RustObjectItem(), Researcheable {
+data class ItemPortraitPhotoFrame(
+    override val isBlueprint: Boolean = false
+) : RustObjectItem(
+    type = RustObjectType.ITEM_PORTRAIT_PHOTO_FRAME,
+    name = R.string.item_portrait_photo_frame,
+    image = R.drawable.item_portrait_photo_frame
+), Researcheable {
 
-    constructor(isBlueprint: Boolean = false) : this(
-        type = RustObjectType.ITEM_PORTRAIT_PHOTO_FRAME,
-        name = R.string.item_portrait_photo_frame,
-        image = R.drawable.item_portrait_photo_frame,
-        isBlueprint = isBlueprint
-    )
 }

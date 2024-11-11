@@ -5,18 +5,12 @@ import com.cocot3ro.rustelectricity.core.RustObjectType
 import com.cocot3ro.rustelectricity.domain.model.Researcheable
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 
-@ConsistentCopyVisibility
-data class ItemModularCarLift private constructor(
-    override val type: RustObjectType,
-    override val name: Int,
-    override val image: Int,
-    override val isBlueprint: Boolean
-) : RustObjectItem(), Researcheable {
+data class ItemModularCarLift(
+    override val isBlueprint: Boolean = false
+) : RustObjectItem(
+    type = RustObjectType.ITEM_MODULAR_CAR_LIFT,
+    name = R.string.item_modular_car_lift,
+    image = R.drawable.item_modular_car_lift
+), Researcheable {
 
-    constructor(isBlueprint: Boolean = false) : this(
-        type = RustObjectType.ITEM_MODULAR_CAR_LIFT,
-        name = R.string.item_modular_car_lift,
-        image = R.drawable.item_modular_car_lift,
-        isBlueprint = isBlueprint
-    )
 }

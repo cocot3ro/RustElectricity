@@ -5,18 +5,12 @@ import com.cocot3ro.rustelectricity.core.RustObjectType
 import com.cocot3ro.rustelectricity.domain.model.Researcheable
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 
-@ConsistentCopyVisibility
-data class ItemShotgunTrap private constructor(
-    override val type: RustObjectType,
-    override val name: Int,
-    override val image: Int,
-    override val isBlueprint: Boolean
-) : RustObjectItem(), Researcheable {
+data class ItemShotgunTrap(
+    override val isBlueprint: Boolean = false
+) : RustObjectItem(
+    type = RustObjectType.ITEM_SHOTGUN_TRAP,
+    name = R.string.item_shotgun_trap,
+    image = R.drawable.item_shotgun_trap
+), Researcheable {
 
-    constructor(isBlueprint: Boolean = false) : this(
-        type = RustObjectType.ITEM_SHOTGUN_TRAP,
-        name = R.string.item_shotgun_trap,
-        image = R.drawable.item_shotgun_trap,
-        isBlueprint = isBlueprint
-    )
 }

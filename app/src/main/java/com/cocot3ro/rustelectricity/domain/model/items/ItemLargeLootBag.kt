@@ -4,16 +4,10 @@ import com.cocot3ro.rustelectricity.R
 import com.cocot3ro.rustelectricity.core.RustObjectType
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 
-@ConsistentCopyVisibility
-data class ItemLargeLootBag private constructor(
-    override val type: RustObjectType,
-    override val name: Int,
-    override val image: Int
-) : RustObjectItem() {
+data object ItemLargeLootBag : RustObjectItem(
+    type = RustObjectType.ITEM_LARGE_LOOT_BAG,
+    name = R.string.item_large_loot_bag,
+    image = R.drawable.item_large_loot_bag
+) {
 
-    constructor() : this(
-        type = RustObjectType.ITEM_LARGE_LOOT_BAG,
-        name = R.string.item_large_loot_bag,
-        image = R.drawable.item_large_loot_bag
-    )
 }

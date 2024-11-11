@@ -4,16 +4,10 @@ import com.cocot3ro.rustelectricity.R
 import com.cocot3ro.rustelectricity.core.RustObjectType
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 
-@ConsistentCopyVisibility
-data class ItemDoubleSignPost private constructor(
-    override val type: RustObjectType,
-    override val name: Int,
-    override val image: Int
-) : RustObjectItem() {
+data object ItemDoubleSignPost : RustObjectItem(
+    type = RustObjectType.ITEM_DOUBLE_SIGN_POST,
+    name = R.string.item_double_sign_post,
+    image = R.drawable.item_double_sign_post
+) {
 
-    constructor() : this(
-        type = RustObjectType.ITEM_DOUBLE_SIGN_POST,
-        name = R.string.item_double_sign_post,
-        image = R.drawable.item_double_sign_post
-    )
 }

@@ -4,16 +4,10 @@ import com.cocot3ro.rustelectricity.R
 import com.cocot3ro.rustelectricity.core.RustObjectType
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 
-@ConsistentCopyVisibility
-data class Item16xZoomScope private constructor(
-    override val type: RustObjectType,
-    override val name: Int,
-    override val image: Int
-) : RustObjectItem() {
+data object Item16xZoomScope : RustObjectItem(
+    type = RustObjectType.ITEM_16X_ZOOM_SCOPE,
+    name = R.string.item_16x_zoom_scope,
+    image = R.drawable.item_16x_zoom_scope
+) {
 
-    constructor() : this(
-        type = RustObjectType.ITEM_16X_ZOOM_SCOPE,
-        name = R.string.item_16x_zoom_scope,
-        image = R.drawable.item_16x_zoom_scope
-    )
 }

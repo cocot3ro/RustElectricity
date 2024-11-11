@@ -5,18 +5,12 @@ import com.cocot3ro.rustelectricity.core.RustObjectType
 import com.cocot3ro.rustelectricity.domain.model.Researcheable
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 
-@ConsistentCopyVisibility
-data class ItemSalvagedSword private constructor(
-    override val type: RustObjectType,
-    override val name: Int,
-    override val image: Int,
-    override val isBlueprint: Boolean
-) : RustObjectItem(), Researcheable {
+data class ItemSalvagedSword(
+    override val isBlueprint: Boolean = false
+) : RustObjectItem(
+    type = RustObjectType.ITEM_SALVAGED_SWORD,
+    name = R.string.item_salvaged_sword,
+    image = R.drawable.item_salvaged_sword
+), Researcheable {
 
-    constructor(isBlueprint: Boolean = false) : this(
-        type = RustObjectType.ITEM_SALVAGED_SWORD,
-        name = R.string.item_salvaged_sword,
-        image = R.drawable.item_salvaged_sword,
-        isBlueprint = isBlueprint
-    )
 }

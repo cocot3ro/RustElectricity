@@ -4,16 +4,10 @@ import com.cocot3ro.rustelectricity.R
 import com.cocot3ro.rustelectricity.core.RustObjectType
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 
-@ConsistentCopyVisibility
-data class ItemScarecrow private constructor(
-    override val type: RustObjectType,
-    override val name: Int,
-    override val image: Int
-) : RustObjectItem() {
+data object ItemScarecrow : RustObjectItem(
+    type = RustObjectType.ITEM_SCARECROW,
+    name = R.string.item_scarecrow,
+    image = R.drawable.item_scarecrow
+) {
 
-    constructor() : this(
-        type = RustObjectType.ITEM_SCARECROW,
-        name = R.string.item_scarecrow,
-        image = R.drawable.item_scarecrow
-    )
 }

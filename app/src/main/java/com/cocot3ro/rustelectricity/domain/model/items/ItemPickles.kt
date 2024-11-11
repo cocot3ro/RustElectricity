@@ -4,16 +4,10 @@ import com.cocot3ro.rustelectricity.R
 import com.cocot3ro.rustelectricity.core.RustObjectType
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 
-@ConsistentCopyVisibility
-data class ItemPickles private constructor(
-    override val type: RustObjectType,
-    override val name: Int,
-    override val image: Int
-) : RustObjectItem() {
+data object ItemPickles : RustObjectItem(
+    type = RustObjectType.ITEM_PICKLES,
+    name = R.string.item_pickles,
+    image = R.drawable.item_pickles
+) {
 
-    constructor() : this(
-        type = RustObjectType.ITEM_PICKLES,
-        name = R.string.item_pickles,
-        image = R.drawable.item_pickles
-    )
 }

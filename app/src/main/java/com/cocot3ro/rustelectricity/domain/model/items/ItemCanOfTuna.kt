@@ -4,16 +4,10 @@ import com.cocot3ro.rustelectricity.R
 import com.cocot3ro.rustelectricity.core.RustObjectType
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 
-@ConsistentCopyVisibility
-data class ItemCanOfTuna private constructor(
-    override val type: RustObjectType,
-    override val name: Int,
-    override val image: Int
-) : RustObjectItem() {
+data object ItemCanOfTuna : RustObjectItem(
+    type = RustObjectType.ITEM_CAN_OF_TUNA,
+    name = R.string.item_can_of_tuna,
+    image = R.drawable.item_can_of_tuna
+) {
 
-    constructor() : this(
-        type = RustObjectType.ITEM_CAN_OF_TUNA,
-        name = R.string.item_can_of_tuna,
-        image = R.drawable.item_can_of_tuna
-    )
 }

@@ -5,18 +5,12 @@ import com.cocot3ro.rustelectricity.core.RustObjectType
 import com.cocot3ro.rustelectricity.domain.model.Researcheable
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 
-@ConsistentCopyVisibility
-data class Item12GaugeBuckshot private constructor(
-    override val type: RustObjectType,
-    override val name: Int,
-    override val image: Int,
-    override val isBlueprint: Boolean
-) : RustObjectItem(), Researcheable {
+data class Item12GaugeBuckshot(
+    override val isBlueprint: Boolean = false
+) : RustObjectItem(
+    type = RustObjectType.ITEM_12_GAUGE_BUCKSHOT,
+    name = R.string.item_12_gauge_buckshot,
+    image = R.drawable.item_12_gauge_buckshot
+), Researcheable {
 
-    constructor(isBlueprint: Boolean = false) : this(
-        type = RustObjectType.ITEM_12_GAUGE_BUCKSHOT,
-        name = R.string.item_12_gauge_buckshot,
-        image = R.drawable.item_12_gauge_buckshot,
-        isBlueprint = isBlueprint
-    )
 }

@@ -5,18 +5,12 @@ import com.cocot3ro.rustelectricity.core.RustObjectType
 import com.cocot3ro.rustelectricity.domain.model.Researcheable
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 
-@ConsistentCopyVisibility
-data class ItemHbhfSensor private constructor(
-    override val type: RustObjectType,
-    override val name: Int,
-    override val image: Int,
-    override val isBlueprint: Boolean
-) : RustObjectItem(), Researcheable {
+data class ItemHbhfSensor(
+    override val isBlueprint: Boolean = false
+) : RustObjectItem(
+    type = RustObjectType.ITEM_HBHF_SENSOR,
+    name = R.string.item_hbhf_sensor,
+    image = R.drawable.item_hbhf_sensor
+), Researcheable {
 
-    constructor(isBlueprint: Boolean = false) : this(
-        type = RustObjectType.ITEM_HBHF_SENSOR,
-        name = R.string.item_hbhf_sensor,
-        image = R.drawable.item_hbhf_sensor,
-        isBlueprint = isBlueprint
-    )
 }
