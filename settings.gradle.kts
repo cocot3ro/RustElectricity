@@ -21,3 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "RustElectricity"
 include(":app")
+include(":processor")
+include(":annotations")

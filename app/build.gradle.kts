@@ -50,6 +50,12 @@ android {
     }
 }
 
+kotlin.sourceSets.main {
+    kotlin.srcDirs(
+        file("${layout.buildDirectory.get().asFile}/generated/ksp/main/kotlin")
+    )
+}
+
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -70,27 +76,32 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    //Firebase
+    implementation(kotlin("reflect"))
+
+    implementation(project(":annotations"))
+    ksp(project(":processor"))
+
+    // Firebase
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.crashlytics)
 
-    //Corrutinas
+    // Corrutinas
     implementation(libs.kotlinx.coroutines.android)
 
-    //OkHttp
+    // OkHttp
     implementation(libs.okhttp)
 
-    //Retrofit
+    // Retrofit
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
 
-    //Dagger Hilt
+    // Dagger Hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
 
-    //Room
+    // Room
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
 
