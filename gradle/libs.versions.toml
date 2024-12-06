@@ -1,6 +1,6 @@
 [versions]
 agp = "8.7.3"
-kotlin = "2.0.21"
+kotlin = "2.1.0"
 coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -8,23 +8,22 @@ espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.9.3"
 composeBom = "2024.11.00"
-ksp = "2.0.21-1.0.26"
+ksp = "2.1.0-1.0.29"
 okhttp = "4.12.0"
 retrofit = "2.11.0"
 roomKtx = "2.6.1"
-hiltAndroid = "2.52"
+hiltAndroid = "2.53"
 hiltNavigationCompose = "1.2.0"
 datastorePreferences = "1.1.1"
 androidDatabaseSqlcipher = "4.5.4"
 securityCrypto = "1.0.0"
 kotlinxCoroutinesAndroid = "1.9.0"
 googleServices = "4.4.2"
-firebaseBom = "33.6.0"
+firebaseBom = "33.7.0"
 navigationCompose = "2.8.4"
 kotlinxSerialization = "1.7.3"
-coilCompose = "3.0.1"
+coilCompose = "3.0.4"
 crashlytics = "3.0.2"
-jetbrainsKotlinJvm = "2.0.21"
 
 
 [libraries]
@@ -72,4 +71,4 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hiltAndroid" }
 google-services = { id = "com.google.gms.google-services", version.ref = "googleServices" }
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "crashlytics" }
-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
+jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
