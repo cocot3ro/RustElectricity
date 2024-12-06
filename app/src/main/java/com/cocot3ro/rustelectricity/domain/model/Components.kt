@@ -1,18 +1,18 @@
 package com.cocot3ro.rustelectricity.domain.model
 
-sealed interface Component
+sealed interface IComponent
 
-interface ElectricalComponent : Component {
+interface IElectricalComponent : IComponent {
     val electricalInputs: Map<Int, ElectricalPlug>
     val electricalOutputs: Map<Int, ElectricalPlug>
 }
 
-interface IndustrialComponent : Component {
+interface IIndustrialComponent : IComponent {
     val industrialInputs: Map<Int, IndustrialPlug>
     val industrialOutputs: Map<Int, IndustrialPlug>
 }
 
-interface WaterComponent : Component {
+interface IWaterComponent : IComponent {
     val waterInputs: Map<Int, WaterPlug>
     val waterOutputs: Map<Int, WaterPlug>
 }

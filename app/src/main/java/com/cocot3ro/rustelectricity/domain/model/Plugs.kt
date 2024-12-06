@@ -4,18 +4,16 @@ import com.cocot3ro.rustelectricity.generated.domain.model.ItemHoseTool
 import com.cocot3ro.rustelectricity.generated.domain.model.ItemPipeTool
 import com.cocot3ro.rustelectricity.generated.domain.model.ItemWireTool
 
-sealed interface Plug<T : Tool<*>> {
-    var pluggedTo: T?
-}
+sealed interface IPlug<T : ITool<*>> { var pluggedTo: T? }
 
 data class WaterPlug(
     override var pluggedTo: ItemHoseTool? = null
-) : Plug<ItemHoseTool>
+) : IPlug<ItemHoseTool>
 
 data class ElectricalPlug(
     override var pluggedTo: ItemWireTool? = null
-) : Plug<ItemWireTool>
+) : IPlug<ItemWireTool>
 
 data class IndustrialPlug(
     override var pluggedTo: ItemPipeTool? = null
-) : Plug<ItemPipeTool>
+) : IPlug<ItemPipeTool>

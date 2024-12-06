@@ -4,14 +4,14 @@ import com.cocot3ro.rustelectricity.generated.domain.model.ItemDoorController
 import com.cocot3ro.rustelectricity.generated.domain.model.ItemStorageAdaptor
 import com.cocot3ro.rustelectricity.generated.domain.model.ItemStorageMonitor
 
-interface DoorControllerAttachable {
+interface IDoorControllerAttachable {
     var doorController: ItemDoorController?
 }
 
-interface StorageMonitorAttachable {
+interface IStorageMonitorAttachable {
     var storageMonitor: ItemStorageMonitor?
 }
 
-interface StorageAdaptorAttachable {
+interface IStorageAdaptorAttachable {
     val adaptors: Array<ItemStorageAdaptor?>
 }

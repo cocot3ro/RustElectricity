@@ -47,6 +47,14 @@ class RustObjectTypeProcessor(
             fileName = "RustObjectItem"
         )
 
+        rustObjExt += "package com.cocot3ro.rustelectricity.generated.domain.model$ln"
+        rustObjExt += ln
+        rustObjExt += "import com.cocot3ro.rustelectricity.domain.model.RustObjectType$ln"
+        rustObjExt += "import com.cocot3ro.rustelectricity.domain.model.RustObjectItem$ln"
+        rustObjExt += ln
+        rustObjExt += "val RustObjectItem.Companion.deployables: Array<RustObjectType> by lazy {$ln"
+        rustObjExt += "\tarrayOf($ln"
+
         val rustObjExtVisitor = RustObjectExtVisitor(rustObjExt)
 
         for (symbol in symbols) {
@@ -67,6 +75,9 @@ class RustObjectTypeProcessor(
             rustObjImpl.close()
         }
 
+        rustObjExt += "\t)$ln"
+        rustObjExt += "}$ln"
+
         rustObjExt.close()
 
         return symbols.filterNot { it.validate() }.toList()
@@ -75,13 +86,17 @@ class RustObjectTypeProcessor(
     inner class RustObjectExtVisitor(private val file: OutputStream) : KSVisitorVoid() {
 
         override fun visitClassDeclaration(classDeclaration: KSClassDeclaration, data: Unit) {
-            val isDeployable = classDeclaration.annotations.any {
-                it.shortName.asString() == Deployable::class.simpleName
+            val isValid = classDeclaration.annotations.any {
+                val name = it.shortName.asString()
+                name == Deployable::class.simpleName
+                        || name == WaterTool::class.simpleName
+                        || name == ElectricalTool::class.simpleName
+                        || name == IndustrialTool::class.simpleName
             }
 
-            if (!isDeployable) return
+            if (!isValid) return
 
-
+            file += "\t\tRustObjectType.${classDeclaration.simpleName.asString()},$ln"
         }
     }
 
@@ -115,21 +130,21 @@ class RustObjectTypeProcessor(
             file += "import com.cocot3ro.rustelectricity.domain.model.RustObjectItem$ln"
             file += "import com.cocot3ro.rustelectricity.domain.model.RustObjectType$ln"
             if (isDeployable || isWaterTool || isElectricalTool || isIndustrialTool) file += "import androidx.compose.ui.geometry.Offset$ln"
-            if (isDeployable) file += "import com.cocot3ro.rustelectricity.domain.model.Deployable$ln"
-            if (isElectricalComponent || isIndustrialComponent || isWaterComponent)file += "import com.cocot3ro.rustelectricity.R$ln"
-            if (isDoorControllerAttachable) file += "import com.cocot3ro.rustelectricity.domain.model.DoorControllerAttachable$ln"
+            if (isDeployable) file += "import com.cocot3ro.rustelectricity.domain.model.IDeployable$ln"
+            if (isElectricalComponent || isIndustrialComponent || isWaterComponent) file += "import com.cocot3ro.rustelectricity.R$ln"
+            if (isDoorControllerAttachable) file += "import com.cocot3ro.rustelectricity.domain.model.IDoorControllerAttachable$ln"
             if (isElectricalComponent) file += "import com.cocot3ro.rustelectricity.domain.model.ElectricalPlug$ln"
-            if (isElectricalTool) file += "import com.cocot3ro.rustelectricity.domain.model.ElectricalTool$ln"
-            if (isElectricalTool || isElectricalComponent) file += "import com.cocot3ro.rustelectricity.domain.model.ElectricalComponent$ln"
+            if (isElectricalTool) file += "import com.cocot3ro.rustelectricity.domain.model.IElectricalTool$ln"
+            if (isElectricalTool || isElectricalComponent) file += "import com.cocot3ro.rustelectricity.domain.model.IElectricalComponent$ln"
             if (isIndustrialComponent) file += "import com.cocot3ro.rustelectricity.domain.model.IndustrialPlug$ln"
-            if (isIndustrialTool) file += "import com.cocot3ro.rustelectricity.domain.model.IndustrialTool$ln"
-            if (isIndustrialTool || isIndustrialComponent) file += "import com.cocot3ro.rustelectricity.domain.model.IndustrialComponent$ln"
-            if (isResearcheable) file += "import com.cocot3ro.rustelectricity.domain.model.Researcheable$ln"
-            if (isStorageAdaptorAttachable) file += "import com.cocot3ro.rustelectricity.domain.model.StorageAdaptorAttachable$ln"
-            if (isStorageMonitorAttachable) file += "import com.cocot3ro.rustelectricity.domain.model.StorageMonitorAttachable$ln"
+            if (isIndustrialTool) file += "import com.cocot3ro.rustelectricity.domain.model.IIndustrialTool$ln"
+            if (isIndustrialTool || isIndustrialComponent) file += "import com.cocot3ro.rustelectricity.domain.model.IIndustrialComponent$ln"
+            if (isResearcheable) file += "import com.cocot3ro.rustelectricity.domain.model.IResearcheable$ln"
+            if (isStorageAdaptorAttachable) file += "import com.cocot3ro.rustelectricity.domain.model.IStorageAdaptorAttachable$ln"
+            if (isStorageMonitorAttachable) file += "import com.cocot3ro.rustelectricity.domain.model.IStorageMonitorAttachable$ln"
             if (isWaterComponent) file += "import com.cocot3ro.rustelectricity.domain.model.WaterPlug$ln"
-            if (isWaterTool) file += "import com.cocot3ro.rustelectricity.domain.model.WaterTool$ln"
-            if (isWaterTool || isWaterComponent) file += "import com.cocot3ro.rustelectricity.domain.model.WaterComponent$ln"
+            if (isWaterTool) file += "import com.cocot3ro.rustelectricity.domain.model.IWaterTool$ln"
+            if (isWaterTool || isWaterComponent) file += "import com.cocot3ro.rustelectricity.domain.model.IWaterComponent$ln"
 
             file += ln
 
@@ -140,17 +155,17 @@ class RustObjectTypeProcessor(
             file += "\ttype = RustObjectType.${classDeclaration.simpleName.asString()}$ln"
             file += ")"
 
-            if (isDeployable) file += ", Deployable"
-            if (isDoorControllerAttachable) file += ", DoorControllerAttachable"
-            if (isElectricalComponent) file += ", ElectricalComponent"
-            if (isElectricalTool) file += ", ElectricalTool"
-            if (isIndustrialComponent) file += ", IndustrialComponent"
-            if (isIndustrialTool) file += ", IndustrialTool"
-            if (isResearcheable) file += ", Researcheable"
-            if (isStorageAdaptorAttachable) file += ", StorageAdaptorAttachable"
-            if (isStorageMonitorAttachable) file += ", StorageMonitorAttachable"
-            if (isWaterComponent) file += ", WaterComponent"
-            if (isWaterTool) file += ", WaterTool"
+            if (isDeployable) file += ", IDeployable"
+            if (isDoorControllerAttachable) file += ", IDoorControllerAttachable"
+            if (isElectricalComponent) file += ", IElectricalComponent"
+            if (isElectricalTool) file += ", IElectricalTool"
+            if (isIndustrialComponent) file += ", IIndustrialComponent"
+            if (isIndustrialTool) file += ", IIndustrialTool"
+            if (isResearcheable) file += ", IResearcheable"
+            if (isStorageAdaptorAttachable) file += ", IStorageAdaptorAttachable"
+            if (isStorageMonitorAttachable) file += ", IStorageMonitorAttachable"
+            if (isWaterComponent) file += ", IWaterComponent"
+            if (isWaterTool) file += ", IWaterTool"
 
             file += " {$ln"
 
@@ -275,9 +290,9 @@ class RustObjectTypeProcessor(
             }
 
             if (isElectricalTool || isIndustrialTool || isWaterTool) {
-                file += "	override var plugA: ${if (isElectricalTool) "ElectricalComponent" else if (isIndustrialTool) "IndustrialComponent" else "WaterComponent"}? = null$ln"
-                file += "	override var plugB: ${if (isElectricalTool) "ElectricalComponent" else if (isIndustrialTool) "IndustrialComponent" else "WaterComponent"}? = null$ln"
-                file += "	override var positions: MutableList<Offset> = mutableListOf()$ln"
+                file += "\toverride var plugA: ${if (isElectricalTool) "IElectricalComponent" else if (isIndustrialTool) "IIndustrialComponent" else "IWaterComponent"}? = null$ln"
+                file += "\toverride var plugB: ${if (isElectricalTool) "IElectricalComponent" else if (isIndustrialTool) "IIndustrialComponent" else "IWaterComponent"}? = null$ln"
+                file += "\toverride var positions: MutableList<Offset> = mutableListOf()$ln"
             }
 
             file += "}"

@@ -2,7 +2,7 @@ package com.cocot3ro.rustelectricity.domain.model
 
 import androidx.compose.ui.geometry.Offset
 
-sealed interface Tool<T : Component> {
+sealed interface ITool<T : IComponent> {
 
     var plugA: T?
     var plugB: T?
@@ -11,8 +11,8 @@ sealed interface Tool<T : Component> {
 
 }
 
-interface ElectricalTool : Tool<ElectricalComponent>
+interface IElectricalTool : ITool<IElectricalComponent>
 
-interface IndustrialTool : Tool<IndustrialComponent>
+interface IIndustrialTool : ITool<IIndustrialComponent>
 
-interface WaterTool : Tool<WaterComponent>
+interface IWaterTool : ITool<IWaterComponent>
