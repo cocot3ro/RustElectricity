@@ -87,11 +87,7 @@ class RustObjectTypeProcessor(
 
         override fun visitClassDeclaration(classDeclaration: KSClassDeclaration, data: Unit) {
             val isValid = classDeclaration.annotations.any {
-                val name = it.shortName.asString()
-                name == Deployable::class.simpleName
-                        || name == WaterTool::class.simpleName
-                        || name == ElectricalTool::class.simpleName
-                        || name == IndustrialTool::class.simpleName
+                it.shortName.asString() == Deployable::class.simpleName
             }
 
             if (!isValid) return
