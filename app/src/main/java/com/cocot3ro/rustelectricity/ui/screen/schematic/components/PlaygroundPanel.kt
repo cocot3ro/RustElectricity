@@ -1,152 +1,225 @@
 package com.cocot3ro.rustelectricity.ui.screen.schematic.components
 
+import android.content.res.Configuration
+import android.util.Log
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.detectTransformGestures
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Icon
+import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.Saver
-import androidx.compose.runtime.saveable.SaverScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.drawText
-import androidx.compose.ui.text.rememberTextMeasurer
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.round
 import androidx.compose.ui.util.fastCoerceIn
+import com.cocot3ro.rustelectricity.R
+import com.cocot3ro.rustelectricity.core.pxToDp
+import com.cocot3ro.rustelectricity.domain.model.IDeployable
+import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 import com.cocot3ro.rustelectricity.ui.theme.DarkBlue
 import kotlin.math.ceil
 import kotlin.math.round
 
-private object Keys {
+private object PlaygroundPanelKeys {
     const val OFFSET = "OFFSET"
     const val SCALE = "SCALE"
 }
 
 private object Values {
-    const val GRID_STEP: Float = 150f
+    const val GRID_STEP: Float = 200f
 
     const val MIN_SCALE: Float = 0.25f
-    const val MAX_SCALE: Float = 2f
+    const val MAX_SCALE: Float = 1.5f
     const val DEFAULT_SCALE: Float = 1f
-    const val SCALE_THRESHOLD: Float = 0.5f
+
+    val SCALE_INTERVAL: (Float) -> Int = { scale ->
+        when (scale) {
+            in MIN_SCALE..<0.5f -> 3
+            in 0.5f..MAX_SCALE -> 1
+            else -> {
+                Log.wtf("PlaygroundPanel", "Invalid scale value: $scale. Scale interval set to 1.")
+                1
+            }
+        }
+    }
 
     const val DEFAULT_OFFSET_X: Float = 0f
     const val DEFAULT_OFFSET_Y: Float = 0f
 }
 
-val offsetSaver = object : Saver<MutableState<Offset>, Pair<Float, Float>> {
-    override fun SaverScope.save(value: MutableState<Offset>): Pair<Float, Float> {
-        return value.value.let { it.x to it.y }
-    }
+private val offsetSaver: Saver<MutableState<Offset>, Pair<Float, Float>> = Saver(
+    save = { it -> it.value.let { it.x to it.y } },
+    restore = { mutableStateOf(Offset(it.first, it.second)) }
+)
 
-    override fun restore(value: Pair<Float, Float>): MutableState<Offset> {
-        return mutableStateOf(Offset(value.first, value.second))
+@Composable
+fun PlaygroundPanel(
+    modifier: Modifier = Modifier,
+    deployables: Array<IDeployable>,
+    canAddItemsToPallet: Boolean,
+    onAddMoreItems: () -> Unit,
+) {
+    var scale by rememberSaveable(
+        key = PlaygroundPanelKeys.SCALE
+    ) { mutableFloatStateOf(Values.DEFAULT_SCALE) }
+
+    var offset by rememberSaveable(
+        key = PlaygroundPanelKeys.OFFSET,
+        saver = offsetSaver
+    ) { mutableStateOf(Offset(Values.DEFAULT_OFFSET_X, Values.DEFAULT_OFFSET_Y)) }
+
+    Box(modifier = modifier) {
+
+        Canvas(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(DarkBlue)
+                .pointerInput(Unit) {
+                    detectTransformGestures { centroid, pan, zoom, _ ->
+                        val newScale = (scale * zoom)
+                            .fastCoerceIn(
+                                minimumValue = Values.MIN_SCALE,
+                                maximumValue = Values.MAX_SCALE
+                            )
+
+                        if (newScale != scale) {
+                            val newOffset = (offset - centroid) * zoom + centroid
+                            offset = newOffset + pan / newScale
+
+                            scale = newScale
+                        } else {
+                            offset += pan
+                        }
+                    }
+                }
+        ) {
+            val space = Values.GRID_STEP * scale
+            val width = size.width
+            val height = size.height
+
+            val lineSpacing = Values.SCALE_INTERVAL.invoke(scale)
+
+            // Dibujar líneas verticales
+            for (i in 0..ceil(width / space).toInt()) {
+                val x = i * space + offset.x % space
+
+                if (x < 0) continue
+                if (x > width) break
+
+                val coordX = round(((x - offset.x) / scale) / Values.GRID_STEP).toInt()
+
+                if (coordX % lineSpacing != 0) continue
+
+                drawLine(
+                    start = Offset(x, 0f),
+                    end = Offset(x, height),
+                    color = Color.White
+                )
+            }
+
+            // Dibujar líneas horizontales
+            for (i in 0..ceil(height / space).toInt()) {
+                val y = i * space + offset.y % space
+
+                if (y < 0) continue
+                if (y > height) break
+
+                val coordY = round(((y - offset.y) / scale) / Values.GRID_STEP).toInt()
+
+                if (coordY % lineSpacing != 0) continue
+
+                drawLine(
+                    start = Offset(0f, y),
+                    end = Offset(width, y),
+                    color = Color.White
+                )
+            }
+        }
+
+        if (canAddItemsToPallet) {
+            SmallFloatingActionButton(
+                onClick = onAddMoreItems,
+                modifier = Modifier
+                    .padding(end = 8.dp, bottom = 8.dp)
+                    .align(
+                        if (LocalContext.current.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
+                            Alignment.BottomEnd
+                        else Alignment.TopStart
+                    )
+            ) {
+                Icon(
+                    imageVector = ImageVector.vectorResource(R.drawable.ic_format_list_bulleted_add_48dp),
+                    contentDescription = stringResource(R.string.pallet_add_more_description)
+                )
+            }
+        }
+
+        deployables.forEach { deployable: IDeployable ->
+            deployable as RustObjectItem
+
+            var itemPosition by remember { mutableStateOf(deployable.position) }
+
+            val bm = ImageBitmap.imageResource(deployable.imageRes)
+            val context = LocalContext.current
+            DrawItem(
+                modifier = Modifier
+                    .width(context.pxToDp(bm.width * scale))
+                    .height(context.pxToDp(bm.height * scale))
+                    .offset {
+                        val x = itemPosition.x * scale + offset.x
+                        val y = itemPosition.y * scale + offset.y
+
+                        Offset(x, y).round()
+                    }
+                    .background(Color.White)
+                    .pointerInput(Unit) {
+                        detectDragGestures { change, dragAmount ->
+                            change.consume()
+
+                            itemPosition += dragAmount / scale
+                            deployable.position = itemPosition
+                        }
+                    },
+                item = deployable
+            )
+        }
     }
 }
 
 @Composable
-fun PlaygroundPanel(
-    modifier: Modifier = Modifier
+private fun DrawItem(
+    modifier: Modifier,
+    item: RustObjectItem
 ) {
-    val textMeasurer = rememberTextMeasurer()
-    var scale by rememberSaveable(key = Keys.SCALE) { mutableFloatStateOf(Values.DEFAULT_SCALE) }
-    var offset by rememberSaveable(
-        saver = offsetSaver,
-        key = Keys.OFFSET
-    ) { mutableStateOf(Offset(Values.DEFAULT_OFFSET_X, Values.DEFAULT_OFFSET_Y)) }
-    var centerOffset by rememberSaveable(
-        saver = offsetSaver
-    ) { mutableStateOf(Offset.Zero) }
-    var applyCenterOffset by rememberSaveable { mutableStateOf(true) }
-
-    Canvas(
-        modifier = modifier
-            .fillMaxSize()
-            .background(DarkBlue)
-            .pointerInput(Unit) {
-                detectTransformGestures { centroid, pan, zoom, _ ->
-                    val newScale = (scale * zoom).fastCoerceIn(Values.MIN_SCALE, Values.MAX_SCALE)
-
-                    if (newScale != scale) {
-                        val newOffset = (offset - centroid) * zoom + centroid
-                        offset = newOffset + pan / newScale
-
-                        scale = newScale
-                    } else {
-                        offset += pan
-                    }
-                }
-            }
-    ) {
-        centerOffset = Offset(size.width / 2f, size.height / 2f)
-
-        if (applyCenterOffset) {
-            offset += centerOffset
-            applyCenterOffset = false
-        }
-
-        val space = Values.GRID_STEP * scale
-        val width = size.width
-        val height = size.height
-
-        val lineSpacing = if (scale < Values.SCALE_THRESHOLD) 3 else 1
-
-        // Dibujar líneas verticales
-        for (i in 0..ceil(width / space).toInt()) {
-            val x = i * space + offset.x % space
-
-            if (x < 0) continue
-            if (x > width) break
-
-            val coordX = round(((x - offset.x) / scale) / Values.GRID_STEP).toInt()
-
-            if (coordX % lineSpacing != 0) continue
-
-            drawLine(
-                start = Offset(x, 0f),
-                end = Offset(x, height),
-                color = Color.White
-            )
-
-            drawText(
-                textMeasurer = textMeasurer,
-                text = coordX.toString(),
-                topLeft = Offset(x, 0f),
-                style = TextStyle(color = Color.White)
-            )
-        }
-
-        // Dibujar líneas horizontales
-        for (i in 0..ceil(height / space).toInt()) {
-            val y = i * space + offset.y % space
-
-            if (y < 0) continue
-            if (y > height) break
-
-            val coordY = round(((y - offset.y) / scale) / Values.GRID_STEP).toInt()
-
-            if (coordY % lineSpacing != 0) continue
-
-            drawLine(
-                start = Offset(0f, y),
-                end = Offset(width, y),
-                color = Color.White
-            )
-
-            drawText(
-                textMeasurer = textMeasurer,
-                text = coordY.toString(),
-                topLeft = Offset(0f, y),
-                style = TextStyle(color = Color.White)
-            )
-        }
-    }
+    Image(
+        modifier = modifier,
+        bitmap = ImageBitmap.imageResource(item.type.imageRes),
+        contentDescription = stringResource(item.type.nameRes)
+    )
 }

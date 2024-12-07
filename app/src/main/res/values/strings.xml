@@ -890,4 +890,5 @@
     <string name="blueprints_in" translatable="false">Blueprints In</string>
 
     <string name="passthrough" translatable="false">Passthrough</string>
+    <string name="pallet_add_more_description">Add more items to the item pallet</string>
 </resources>

@@ -24,6 +24,7 @@ navigationCompose = "2.8.4"
 kotlinxSerialization = "1.7.3"
 coilCompose = "3.0.4"
 crashlytics = "3.0.2"
+constraintLayout = "1.1.0"
 
 
 [libraries]
@@ -60,6 +61,7 @@ androidx-navigation-compose = { module = "androidx.navigation:navigation-compose
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
 symbol-processing-api = { module = "com.google.devtools.ksp:symbol-processing-api", version.ref = "ksp" }
+constraintlayout-compose = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "constraintLayout" }
 
 
 [plugins]
