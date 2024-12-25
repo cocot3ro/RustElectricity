@@ -1,4 +1,4 @@
-package com.cocot3ro.rustelectricity.ui.screen.schematic.components
+package com.cocot3ro.rustelectricity.ui.dialog
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

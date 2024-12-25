@@ -24,18 +24,10 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
 import com.cocot3ro.rustelectricity.generated.domain.model.deployables
-import com.cocot3ro.rustelectricity.ui.screen.schematic.components.AddItemsToPalletDialog
+import com.cocot3ro.rustelectricity.ui.dialog.AddItemsToPalletDialog
 import com.cocot3ro.rustelectricity.ui.screen.schematic.components.LandscapeComponentsPanel
 import com.cocot3ro.rustelectricity.ui.screen.schematic.components.PlaygroundPanel
 import com.cocot3ro.rustelectricity.ui.screen.schematic.components.PortraitComponentsPanel
-
-private object SchematicScreenKeys {
-    const val EXPANDED = "EXPANDED"
-    const val DEFAULT_EXPANDED = true
-
-    const val SHOW_DIALOG = "SHOW_DIALOG"
-    const val DEFAULT_SHOW_DIALOG = false
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -57,9 +49,9 @@ fun SchematicScreen(
         val itemPallet = viewModel.itemPallet.collectAsState().value.toTypedArray()
         val deployables = viewModel.deployables.collectAsState().value.toTypedArray()
 
-        var showDialog by rememberSaveable(
-            key = SchematicScreenKeys.SHOW_DIALOG
-        ) { mutableStateOf(SchematicScreenKeys.DEFAULT_SHOW_DIALOG) }
+        var showDialog by rememberSaveable(key = "SHOW_DIALOG") {
+            mutableStateOf(false)
+        }
 
         val availableItems = RustObjectItem.deployables.subtract(itemPallet.toSet()).toTypedArray()
 
