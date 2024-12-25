@@ -46,11 +46,6 @@ import com.cocot3ro.rustelectricity.ui.theme.DarkBlue
 import kotlin.math.ceil
 import kotlin.math.round
 
-private object PlaygroundPanelKeys {
-    const val OFFSET = "OFFSET"
-    const val SCALE = "SCALE"
-}
-
 private object Values {
     const val GRID_STEP: Float = 200f
 
@@ -68,9 +63,6 @@ private object Values {
             }
         }
     }
-
-    const val DEFAULT_OFFSET_X: Float = 0f
-    const val DEFAULT_OFFSET_Y: Float = 0f
 }
 
 private val offsetSaver: Saver<MutableState<Offset>, Pair<Float, Float>> = Saver(
@@ -86,14 +78,12 @@ fun PlaygroundPanel(
     onAddMoreItems: () -> Unit,
 ) {
     var scale by rememberSaveable(
-        key = PlaygroundPanelKeys.SCALE
+        key = "SCALE"
     ) { mutableFloatStateOf(Values.DEFAULT_SCALE) }
 
-    var offset by rememberSaveable(
-        key = PlaygroundPanelKeys.OFFSET,
-        saver = offsetSaver
-    ) { mutableStateOf(Offset(Values.DEFAULT_OFFSET_X, Values.DEFAULT_OFFSET_Y)) }
-
+    var offset by rememberSaveable(key = "OFFSET", saver = offsetSaver) {
+        mutableStateOf(Offset.Zero)
+    }
     Box(modifier = modifier) {
 
         Canvas(

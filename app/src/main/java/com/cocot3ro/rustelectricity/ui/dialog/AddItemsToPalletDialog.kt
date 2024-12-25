@@ -37,11 +37,6 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.cocot3ro.rustelectricity.domain.model.RustObjectType
 
-private object AddItemsToPalletDialogKeys {
-    const val TEXT = "TEXT"
-    const val EXPANDED = "EXPANDED"
-}
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddItemsToPalletDialog(
@@ -64,15 +59,11 @@ fun AddItemsToPalletDialog(
             }
         },
         text = {
-            var text by rememberSaveable(
-                key = AddItemsToPalletDialogKeys.TEXT
-            ) {
+            var text by rememberSaveable(key = "TEXT") {
                 mutableStateOf("")
             }
 
-            var expanded by rememberSaveable(
-                key = AddItemsToPalletDialogKeys.EXPANDED
-            ) {
+            var expanded by rememberSaveable(key = "EXPANDED") {
                 mutableStateOf(false)
             }
 
