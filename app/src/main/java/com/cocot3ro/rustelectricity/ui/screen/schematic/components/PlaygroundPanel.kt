@@ -40,8 +40,7 @@ import androidx.compose.ui.unit.round
 import androidx.compose.ui.util.fastCoerceIn
 import com.cocot3ro.rustelectricity.R
 import com.cocot3ro.rustelectricity.core.pxToDp
-import com.cocot3ro.rustelectricity.domain.model.IDeployable
-import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
+import com.cocot3ro.rustelectricity.interfaces.IDeployable
 import com.cocot3ro.rustelectricity.ui.theme.DarkBlue
 import kotlin.math.ceil
 import kotlin.math.round

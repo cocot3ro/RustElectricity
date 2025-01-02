@@ -1,17 +1,17 @@
 package com.cocot3ro.processor
 
-import com.cocot3ro.annotations.Deployable
-import com.cocot3ro.annotations.DoorControllerAttachable
-import com.cocot3ro.annotations.ElectricalComponent
-import com.cocot3ro.annotations.ElectricalTool
-import com.cocot3ro.annotations.IndustrialComponent
-import com.cocot3ro.annotations.IndustrialTool
-import com.cocot3ro.annotations.Researcheable
-import com.cocot3ro.annotations.RustObjectItem
-import com.cocot3ro.annotations.StorageAdaptorAttachable
-import com.cocot3ro.annotations.StorageMonitorAttachable
-import com.cocot3ro.annotations.WaterComponent
-import com.cocot3ro.annotations.WaterTool
+import com.cocot3ro.rustelectricity.annotations.Blueprint
+import com.cocot3ro.rustelectricity.annotations.Deployable
+import com.cocot3ro.rustelectricity.annotations.DoorControllerAttachable
+import com.cocot3ro.rustelectricity.annotations.ElectricalComponent
+import com.cocot3ro.rustelectricity.annotations.ElectricalTool
+import com.cocot3ro.rustelectricity.annotations.IndustrialComponent
+import com.cocot3ro.rustelectricity.annotations.IndustrialTool
+import com.cocot3ro.rustelectricity.annotations.RustObject
+import com.cocot3ro.rustelectricity.annotations.StorageAdaptorAttachable
+import com.cocot3ro.rustelectricity.annotations.StorageMonitorAttachable
+import com.cocot3ro.rustelectricity.annotations.WaterComponent
+import com.cocot3ro.rustelectricity.annotations.WaterTool
 import com.google.devtools.ksp.processing.CodeGenerator
 import com.google.devtools.ksp.processing.Dependencies
 import com.google.devtools.ksp.processing.KSPLogger
@@ -23,10 +23,12 @@ import com.google.devtools.ksp.symbol.KSVisitorVoid
 import com.google.devtools.ksp.validate
 import java.io.OutputStream
 
+@Deprecated("Use RustObjectProcessor instead as it implements KotlinPoet")
 class RustObjectTypeProcessor(
     private val codeGenerator: CodeGenerator,
     private val logger: KSPLogger
 ) : SymbolProcessor {
+
     private val ln = System.lineSeparator()
 
     operator fun OutputStream.plusAssign(str: String) {
@@ -34,9 +36,8 @@ class RustObjectTypeProcessor(
     }
 
     override fun process(resolver: Resolver): List<KSAnnotated> {
-
         val symbols = resolver
-            .getSymbolsWithAnnotation(RustObjectItem::class.qualifiedName!!)
+            .getSymbolsWithAnnotation(RustObject::class.qualifiedName!!)
             .filterIsInstance<KSClassDeclaration>()
 
         if (!symbols.iterator().hasNext()) return emptyList()
@@ -58,12 +59,16 @@ class RustObjectTypeProcessor(
         val rustObjExtVisitor = RustObjectExtVisitor(rustObjExt)
 
         for (symbol in symbols) {
-
             val rustObjImpl: OutputStream = codeGenerator.createNewFile(
                 dependencies = Dependencies(false),
                 packageName = "com.cocot3ro.rustelectricity.generated.domain.model",
                 fileName = symbol.simpleName.asString().lowercase().split("_")
-                    .joinToString("") { it.replaceFirstChar { ch -> if (ch.isLetter()) ch.uppercaseChar() else ch } }
+                    .joinToString("") {
+                        it.replaceFirstChar { c ->
+                            if (c.isLetter()) c.uppercaseChar()
+                            else c
+                        }
+                    }
             )
 
             rustObjImpl += "package com.cocot3ro.rustelectricity.generated.domain.model$ln"
@@ -79,7 +84,6 @@ class RustObjectTypeProcessor(
         rustObjExt += "}$ln"
 
         rustObjExt.close()
-
         return symbols.filterNot { it.validate() }.toList()
     }
 
@@ -113,7 +117,7 @@ class RustObjectTypeProcessor(
             val isIndustrialTool =
                 classDeclaration.annotations.any { it.shortName.asString() == IndustrialTool::class.simpleName }
             val isResearcheable =
-                classDeclaration.annotations.any { it.shortName.asString() == Researcheable::class.simpleName }
+                classDeclaration.annotations.any { it.shortName.asString() == Blueprint::class.simpleName }
             val isStorageAdaptorAttachable =
                 classDeclaration.annotations.any { it.shortName.asString() == StorageAdaptorAttachable::class.simpleName }
             val isStorageMonitorAttachable =
@@ -294,4 +298,5 @@ class RustObjectTypeProcessor(
             file += "}"
         }
     }
+
 }

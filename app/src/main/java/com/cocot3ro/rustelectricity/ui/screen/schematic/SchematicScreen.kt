@@ -22,8 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.cocot3ro.rustelectricity.domain.model.RustObjectItem
-import com.cocot3ro.rustelectricity.generated.domain.model.deployables
+import com.cocot3ro.rustelectricity.domain.model.RustObjects
 import com.cocot3ro.rustelectricity.ui.dialog.AddItemsToPalletDialog
 import com.cocot3ro.rustelectricity.ui.screen.schematic.components.LandscapeComponentsPanel
 import com.cocot3ro.rustelectricity.ui.screen.schematic.components.PlaygroundPanel
@@ -53,7 +52,7 @@ fun SchematicScreen(
             mutableStateOf(false)
         }
 
-        val availableItems = RustObjectItem.deployables.subtract(itemPallet.toSet()).toTypedArray()
+        val availableItems = RustObjects.deployables.subtract(itemPallet.toSet()).toTypedArray()
 
         when (LocalContext.current.resources.configuration.orientation) {
 

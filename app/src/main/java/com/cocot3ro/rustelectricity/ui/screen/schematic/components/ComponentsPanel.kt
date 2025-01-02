@@ -24,7 +24,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import com.cocot3ro.rustelectricity.domain.model.RustObjectType
 
 @Composable
 fun PortraitComponentsPanel(

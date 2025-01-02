@@ -35,14 +35,14 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import com.cocot3ro.rustelectricity.domain.model.RustObjectType
+import com.cocot3ro.rustelectricity.domain.model.RustObject
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddItemsToPalletDialog(
     onDismissRequest: () -> Unit,
-    availableItems: Array<RustObjectType>,
-    onItemClicked: (RustObjectType) -> Unit
+    availableItems: Array<RustObject>,
+    onItemClicked: (RustObject) -> Unit
 ) {
 
     AlertDialog(
@@ -94,7 +94,7 @@ fun AddItemsToPalletDialog(
                         }.toTypedArray()
 
                     LazyColumn {
-                        items(items) { item: RustObjectType ->
+                        items(items) { item: RustObject ->
                             DrawItem(item, onItemClicked)
                         }
                     }
@@ -105,7 +105,7 @@ fun AddItemsToPalletDialog(
 }
 
 @Composable
-private fun DrawItem(item: RustObjectType, onClick: (RustObjectType) -> Unit) {
+private fun DrawItem(item: RustObject, onClick: (RustObject) -> Unit) {
     ConstraintLayout(
         modifier = Modifier
             .padding(8.dp)

@@ -15,3 +15,8 @@ kotlin {
         jvmTarget = JvmTarget.JVM_11
     }
 }
+
+dependencies {
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.ui)
+}
