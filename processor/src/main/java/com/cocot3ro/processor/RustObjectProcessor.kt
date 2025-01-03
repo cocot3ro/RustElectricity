@@ -34,13 +34,11 @@ import com.cocot3ro.rustelectricity.interfaces.IWaterComponent
 import com.cocot3ro.rustelectricity.interfaces.IWaterPlug
 import com.cocot3ro.rustelectricity.interfaces.IWaterTool
 import com.google.devtools.ksp.processing.CodeGenerator
-import com.google.devtools.ksp.processing.KSPLogger
 import com.google.devtools.ksp.processing.Resolver
 import com.google.devtools.ksp.processing.SymbolProcessor
 import com.google.devtools.ksp.symbol.KSAnnotated
 import com.google.devtools.ksp.symbol.KSAnnotation
 import com.google.devtools.ksp.symbol.KSClassDeclaration
-import com.google.devtools.ksp.symbol.KSFunctionDeclaration
 import com.google.devtools.ksp.symbol.KSType
 import com.google.devtools.ksp.symbol.KSValueArgument
 import com.google.devtools.ksp.symbol.KSVisitorVoid
@@ -54,6 +52,7 @@ import com.squareup.kotlinpoet.ParameterSpec
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
 import com.squareup.kotlinpoet.TypeSpec
+import com.squareup.kotlinpoet.asClassName
 import com.squareup.kotlinpoet.asTypeName
 import com.squareup.kotlinpoet.ksp.toClassName
 import com.squareup.kotlinpoet.ksp.writeTo
@@ -66,46 +65,79 @@ class RustObjectProcessor(
 
     override fun process(resolver: Resolver): List<KSAnnotated> {
 
-        val symbols = resolver
+        val symbol = resolver
             .getSymbolsWithAnnotation(RustObject::class.qualifiedName!!)
             .filterIsInstance<KSClassDeclaration>()
+            .firstOrNull()
 
-        if (!symbols.iterator().hasNext()) return emptyList()
+        if (symbol == null) return emptyList()
 
-        symbols.forEach { symbol: KSClassDeclaration ->
+        val codeBlock: CodeBlock.Builder = CodeBlock.builder()
+        val rustObjectExtensionVisitor = RustObjectExtensionVisitor(codeBlock)
 
-            val implementations =
-                (symbol.annotations.first {
-                    it.shortName.asString() == RustObject::class.simpleName
-                }.arguments.first().value as ArrayList<*>)
-                    .map { it as KSType }
+        val implementations =
+            (symbol.annotations.first {
+                it.shortName.asString() == RustObject::class.simpleName
+            }.arguments.first().value as ArrayList<*>)
+                .map { it as KSType }
 
-            implementations.forEach implementations@{ impl: KSType ->
+        implementations.forEach { impl: KSType ->
 
-                val builder = impl.toClassName().let { className: ClassName ->
-                    FileSpec.builder(
-                        packageName = className.packageName,
-                        fileName = "${className.simpleName}Impl"
-                    )
-                }
-
-                impl.declaration.accept(RustObjectImplVisitor(builder), Unit)
-
-                builder.build().writeTo(codeGenerator, false)
+            val builder = impl.toClassName().let { className: ClassName ->
+                FileSpec.builder(
+                    packageName = className.packageName,
+                    fileName = "${className.simpleName}Impl"
+                )
             }
+
+            impl.declaration.accept(RustObjectImplVisitor(builder), Unit)
+            impl.declaration.accept(rustObjectExtensionVisitor, Unit)
+
+            builder.build().writeTo(codeGenerator, false)
         }
 
-        return symbols.filterNot { it.validate() }.toList()
+        val helperClass = symbol.toClassName().let {
+            ClassName(it.packageName, "${it.simpleName}s")
+        }
+
+        FileSpec.builder(
+            packageName = helperClass.packageName,
+            fileName = helperClass.simpleName
+        )
+            .addProperty(
+                PropertySpec.builder(
+                    "deployables",
+                    Array::class.asClassName().parameterizedBy(symbol.toClassName())
+                )
+                    .receiver(
+                        helperClass.nestedClass("Companion")
+                    )
+                    .delegate(
+                        CodeBlock.builder()
+                            .beginControlFlow("lazy")
+                            .addStatement("arrayOf(")
+                            .indent()
+                            .add(codeBlock.build())
+                            .unindent()
+                            .addStatement(")")
+                            .endControlFlow()
+                            .build()
+                    )
+                    .build()
+            )
+            .build()
+            .writeTo(codeGenerator, false)
+
+        return listOf(symbol).filterNot { it.validate() }.toList()
     }
 
-    inner class RustObjectExtVisitor : KSVisitorVoid() {
+    inner class RustObjectExtensionVisitor(
+        private val codeBlock: CodeBlock.Builder
+    ) : KSVisitorVoid() {
 
         override fun visitClassDeclaration(classDeclaration: KSClassDeclaration, data: Unit) {
-
-        }
-
-        override fun visitFunctionDeclaration(function: KSFunctionDeclaration, data: Unit) {
-
+            if (classDeclaration.annotations.any { it.shortName.asString() == Deployable::class.simpleName })
+                codeBlock.addStatement("${classDeclaration.simpleName.asString()}Impl(),")
         }
 
     }
@@ -357,7 +389,7 @@ class RustObjectProcessor(
 
                         ParameterSpec.builder(
                             positions.name,
-//                                positions.returnType.asTypeName()
+//                            positions.returnType.asTypeName(). It replaces MutableList with List
                             MutableList::class.parameterizedBy(Offset::class).rawType.let { typeName: ClassName ->
                                 ClassName(typeName.packageName, "Mutable${typeName.simpleName}")
                                     .parameterizedBy(Offset::class.asTypeName())
@@ -442,7 +474,10 @@ class RustObjectProcessor(
                 WaterComponent::waterInputs.name,
                 WaterComponent::waterOutputs.name -> {
 
-                    val (property, plugClass) = when (argumentName) {
+                    val (
+                        property,
+                        plugClass
+                    ) = when (argumentName) {
                         ElectricalComponent::electricalInputs.name -> IElectricalComponent::electricalInputs to IElectricalPlug::class
                         ElectricalComponent::electricalOutputs.name -> IElectricalComponent::electricalOutputs to IElectricalPlug::class
 
@@ -469,15 +504,13 @@ class RustObjectProcessor(
                                                 if (inputs.isEmpty()) {
                                                     addStatement("emptyArray<${plugClass.simpleName}>()")
                                                 } else {
-                                                    addStatement(
-                                                        inputs.joinToString(
-                                                            prefix = "arrayOf<${plugClass.simpleName}>(",
-                                                            separator = ", ",
-                                                            postfix = ")"
-                                                        ) { input ->
-                                                            "${input.toClassName().simpleName}()"
-                                                        }
-                                                    )
+                                                    addStatement("arrayOf<${plugClass.simpleName}>(")
+                                                    indent()
+                                                    inputs.forEachIndexed { idx, it ->
+                                                        addStatement("${it.toClassName().simpleName}()${if (idx != inputs.lastIndex) "," else ""}")
+                                                    }
+                                                    unindent()
+                                                    add(")")
                                                 }
                                             }
                                     }

@@ -23,6 +23,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.cocot3ro.rustelectricity.domain.model.RustObjects
+import com.cocot3ro.rustelectricity.domain.model.deployables
 import com.cocot3ro.rustelectricity.ui.dialog.AddItemsToPalletDialog
 import com.cocot3ro.rustelectricity.ui.screen.schematic.components.LandscapeComponentsPanel
 import com.cocot3ro.rustelectricity.ui.screen.schematic.components.PlaygroundPanel
