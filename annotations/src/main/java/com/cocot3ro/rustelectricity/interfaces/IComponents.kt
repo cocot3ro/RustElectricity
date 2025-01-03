@@ -3,16 +3,16 @@ package com.cocot3ro.rustelectricity.interfaces
 sealed interface IComponent
 
 interface IElectricalComponent : IComponent {
-    val electricalInputs: Map<Int, IElectricalPlug>
-    val electricalOutputs: Map<Int, IElectricalPlug>
+    var electricalInputs: Array<IElectricalPlug>
+    var electricalOutputs: Array<IElectricalPlug>
 }
 
 interface IIndustrialComponent : IComponent {
-    val industrialInputs: Map<Int, IIndustrialPlug>
-    val industrialOutputs: Map<Int, IIndustrialPlug>
+    var industrialInputs: Array<IIndustrialPlug>
+    var industrialOutputs: Array<IIndustrialPlug>
 }
 
 interface IWaterComponent : IComponent {
-    val waterInputs: Map<Int, IWaterPlug>
-    val waterOutputs: Map<Int, IWaterPlug>
+    var waterInputs: Array<IWaterPlug>
+    var waterOutputs: Array<IWaterPlug>
 }

@@ -2,7 +2,6 @@ package com.cocot3ro.rustelectricity.domain.model
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import com.cocot3ro.rustelectricity.R
 
 @com.cocot3ro.rustelectricity.annotations.RustObject(
     implementations = [
@@ -804,8 +803,7 @@ import com.cocot3ro.rustelectricity.R
         ItemYellowBerryClone::class,
         ItemYellowBerrySeed::class,
         ItemYellowPerch::class
-    ],
-    resourcesClass = R::class
+    ]
 )
 sealed class RustObject(
     @StringRes
@@ -814,8 +812,7 @@ sealed class RustObject(
     @DrawableRes
     val imageRes: Int
 ) {
-    companion object;
 
-    abstract fun create(): RustObject
+    companion object;
 
 }

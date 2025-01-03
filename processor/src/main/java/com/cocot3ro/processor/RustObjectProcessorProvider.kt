@@ -7,8 +7,7 @@ import com.google.devtools.ksp.processing.SymbolProcessorProvider
 class RustObjectProcessorProvider : SymbolProcessorProvider {
     override fun create(environment: SymbolProcessorEnvironment): SymbolProcessor {
         return RustObjectProcessor(
-            codeGenerator = environment.codeGenerator,
-            logger = environment.logger
+            codeGenerator = environment.codeGenerator
         )
     }
 }

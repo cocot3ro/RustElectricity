@@ -3,15 +3,15 @@ package com.cocot3ro.rustelectricity.domain.model
 import com.cocot3ro.rustelectricity.R
 import com.cocot3ro.rustelectricity.annotations.Blueprint
 import com.cocot3ro.rustelectricity.annotations.Deployable
-import com.cocot3ro.rustelectricity.annotations.DoorController
+import com.cocot3ro.rustelectricity.annotations.ItemDoorController
 import com.cocot3ro.rustelectricity.annotations.DoorControllerAttachable
 import com.cocot3ro.rustelectricity.annotations.ElectricalComponent
 import com.cocot3ro.rustelectricity.annotations.ElectricalTool
 import com.cocot3ro.rustelectricity.annotations.IndustrialComponent
 import com.cocot3ro.rustelectricity.annotations.IndustrialTool
-import com.cocot3ro.rustelectricity.annotations.StorageAdaptor
+import com.cocot3ro.rustelectricity.annotations.ItemStorageAdaptor
 import com.cocot3ro.rustelectricity.annotations.StorageAdaptorAttachable
-import com.cocot3ro.rustelectricity.annotations.StorageMonitor
+import com.cocot3ro.rustelectricity.annotations.ItemStorageMonitor
 import com.cocot3ro.rustelectricity.annotations.StorageMonitorAttachable
 import com.cocot3ro.rustelectricity.annotations.WaterComponent
 import com.cocot3ro.rustelectricity.annotations.WaterTool
@@ -125,11 +125,11 @@ abstract class ItemAnchovy : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugInputA::class,
         PlugInputB::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPowerOut::class
     ]
 )
@@ -203,10 +203,10 @@ abstract class ItemAssaultRifle : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class
     ],
-    outputs = []
+    electricalOutputs = []
 )
 abstract class ItemAudioAlarm : RustObject(
     nameRes = R.string.item_audio_alarm,
@@ -216,10 +216,10 @@ abstract class ItemAudioAlarm : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugNoAmmo::class,
         PlugLowAmmo::class,
         PlugHasTarget::class
@@ -391,11 +391,11 @@ abstract class ItemBleach : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class,
         PlugBlockPassthrough::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPowerOut::class
     ]
 )
@@ -500,11 +500,11 @@ abstract class ItemBoogieBoard : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class,
         PlugTogglePlay::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugAudioOut::class
     ]
 )
@@ -640,10 +640,10 @@ abstract class ItemButcherKnife : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPowerOut::class
     ]
 )
@@ -763,10 +763,10 @@ abstract class ItemCctvCamera : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPassthroughElectrical::class
     ]
 )
@@ -938,10 +938,10 @@ abstract class ItemConfettiCannon : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerAudioIn::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugAudioPassthrough::class
     ]
 )
@@ -1008,22 +1008,13 @@ abstract class ItemCornSeed : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-//    inputs = [
-//        "power_in",
-//        "clear_counter",
-//        "increment_counter",
-//        "decrement_counter"
-//    ],
-//    outputs = [
-//        "passthrough"
-//    ]
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class,
         PlugClearCounter::class,
         PlugIncrementCounter::class,
         PlugDecrementCounter::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPassthroughElectrical::class
     ]
 )
@@ -1092,10 +1083,10 @@ abstract class ItemDecorativeTinsel : RustObject(
 
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPassthroughElectrical::class
     ]
 )
@@ -1112,10 +1103,10 @@ abstract class ItemDieselFuel : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPowerOut::class
     ]
 )
@@ -1127,10 +1118,10 @@ abstract class ItemDigitalClock : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPower::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPassthroughElectrical::class
     ]
 )
@@ -1174,16 +1165,16 @@ abstract class ItemDoorCloser : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class,
         PlugOpen::class,
         PlugClose::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPassthroughElectrical::class
     ]
 )
-@DoorController
+@ItemDoorController
 abstract class ItemDoorController : RustObject(
     nameRes = R.string.item_door_controller,
     imageRes = R.drawable.item_door_controller
@@ -1266,10 +1257,10 @@ abstract class ItemEggSuit : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugBranchOut::class,
         PlugPowerOut::class
     ]
@@ -1282,10 +1273,10 @@ abstract class ItemElectricalBranch : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class
     ],
-    outputs = []
+    electricalOutputs = []
 )
 @StorageAdaptorAttachable(slotAmount = 2)
 abstract class ItemElectricFurnace : RustObject(
@@ -1301,10 +1292,10 @@ abstract class ItemElectricFuse : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPassthroughElectrical::class
     ]
 )
@@ -1316,10 +1307,10 @@ abstract class ItemElectricHeater : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class
     ],
-    outputs = []
+    electricalOutputs = []
 )
 abstract class ItemElevator : RustObject(
     nameRes = R.string.item_elevator,
@@ -1446,10 +1437,10 @@ abstract class ItemFlashbang : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPassthroughElectrical::class
     ]
 )
@@ -1485,12 +1476,12 @@ abstract class ItemFloorTriangleGrill : RustObject(
 @Blueprint
 @Deployable
 @WaterComponent(
-    inputs = [
+    waterInputs = [
         PlugWaterIn1::class,
         PlugWaterIn2::class,
         PlugWaterIn3::class
     ],
-    outputs = [
+    waterOutputs = [
         PlugWaterOut::class
     ]
 )
@@ -1502,10 +1493,10 @@ abstract class ItemFluidCombiner : RustObject(
 @Blueprint
 @Deployable
 @WaterComponent(
-    inputs = [
+    waterInputs = [
         PlugWaterIn::class
     ],
-    outputs = [
+    waterOutputs = [
         PlugWaterOut1::class,
         PlugWaterOut2::class,
         PlugWaterOut3::class
@@ -1519,17 +1510,17 @@ abstract class ItemFluidSplitter : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPumpPower::class,
         PlugToggle::class
     ],
-    outputs = []
+    electricalOutputs = []
 )
 @WaterComponent(
-    inputs = [
+    waterInputs = [
         PlugFluidInput::class
     ],
-    outputs = [
+    waterOutputs = [
         PlugFluidOutput::class
     ]
 )
@@ -1540,12 +1531,12 @@ abstract class ItemFluidSwitchAndPump : RustObject(
 
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugToggle::class,
         PlugTurnOn::class,
         PlugTurnOff::class
     ],
-    outputs = []
+    electricalOutputs = []
 )
 abstract class ItemFogger3000 : RustObject(
     nameRes = R.string.item_fogger_3000,
@@ -1708,10 +1699,10 @@ abstract class ItemGreenBoomer : RustObject(
 
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPassthroughElectrical::class
     ]
 )
@@ -1796,10 +1787,10 @@ abstract class ItemHazmatYoutooz : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPowerOut::class
     ]
 )
@@ -2115,10 +2106,10 @@ abstract class ItemHvPistolAmmo : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class
     ],
-    outputs = []
+    electricalOutputs = []
 )
 abstract class ItemIgniter : RustObject(
     nameRes = R.string.item_igniter,
@@ -2151,12 +2142,12 @@ abstract class ItemIncendiaryRocket : RustObject(
 @Blueprint
 @Deployable
 @IndustrialComponent(
-    inputs = [
+    industrialInputs = [
         PlugIndustrialIn1::class,
         PlugIndustrialIn2::class,
         PlugIndustrialIn3::class
     ],
-    outputs = [
+    industrialOutputs = [
         PlugIndustrialOut::class
     ]
 )
@@ -2168,12 +2159,12 @@ abstract class ItemIndustrialCombiner : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class,
         PlugTurnOn::class,
         PlugTurnOff::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPassthroughElectrical::class,
         PlugFilterPass::class,
         PlugFilterFail::class
@@ -2187,20 +2178,20 @@ abstract class ItemIndustrialConveyor : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugTurnOff::class,
         PlugTurnOn::class,
         PlugPowerIn::class,
         PlugToggle::class
     ],
-    outputs = []
+    electricalOutputs = []
 )
 @IndustrialComponent(
-    inputs = [
+    industrialInputs = [
         PlugIndustrialIn::class,
         PlugBlueprintsIn::class
     ],
-    outputs = [
+    industrialOutputs = [
         PlugIndustrialOut::class,
         PlugBlueprintOut::class
     ]
@@ -2213,10 +2204,10 @@ abstract class ItemIndustrialCrafter : RustObject(
 @Blueprint
 @Deployable
 @IndustrialComponent(
-    inputs = [
+    industrialInputs = [
         PlugIndustrialIn::class
     ],
-    outputs = [
+    industrialOutputs = [
         PlugIndustrialOut1::class,
         PlugIndustrialOut2::class,
         PlugIndustrialOut3::class
@@ -2229,10 +2220,10 @@ abstract class ItemIndustrialSplitter : RustObject(
 
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPassthroughElectrical::class
     ]
 )
@@ -2334,10 +2325,10 @@ abstract class ItemLantern : RustObject(
 
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPassthroughElectrical::class
     ]
 )
@@ -2397,10 +2388,10 @@ abstract class ItemLargeMedkit : RustObject(
 
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPassthroughElectrical::class
     ]
 )
@@ -2429,10 +2420,10 @@ abstract class ItemLargePresent : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPowerOutput::class
     ]
 )
@@ -2444,8 +2435,8 @@ abstract class ItemLargeRechargeableBattery : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [],
-    outputs = [
+    electricalInputs = [],
+    electricalOutputs = [
         PlugElectricOutput::class
     ]
 )
@@ -2457,10 +2448,10 @@ abstract class ItemLargeSolarPanel : RustObject(
 @Blueprint
 @Deployable
 @WaterComponent(
-    inputs = [
+    waterInputs = [
         PlugWaterIn::class
     ],
-    outputs = [
+    waterOutputs = [
         PlugWaterOut::class
     ]
 )
@@ -2487,10 +2478,10 @@ abstract class ItemLargeWoodBox : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPowerOut::class
     ]
 )
@@ -2502,10 +2493,10 @@ abstract class ItemLaserDetector : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerAudioIn::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugAudioPassthrough::class
     ]
 )
@@ -2656,10 +2647,10 @@ abstract class ItemMedicalSyringe : RustObject(
 
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPassthroughElectrical::class
     ]
 )
@@ -2690,10 +2681,10 @@ abstract class ItemMediumLootBag : RustObject(
 
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPassthroughElectrical::class
     ]
 )
@@ -2740,10 +2731,10 @@ abstract class ItemMediumQualityValves : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPowerOutput::class
     ]
 )
@@ -2767,13 +2758,13 @@ abstract class ItemMegaphone : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class,
         PlugSet::class,
         PlugReset::class,
         PlugToggle::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugInvertedOutput::class,
         PlugOutput::class
     ]
@@ -2862,10 +2853,10 @@ abstract class ItemMetalWindowBars : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugAudioOut::class
     ]
 )
@@ -2930,10 +2921,10 @@ abstract class ItemMobilePhone : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class
     ],
-    outputs = []
+    electricalOutputs = []
 )
 abstract class ItemModularCarLift : RustObject(
     nameRes = R.string.item_modular_car_lift,
@@ -3057,11 +3048,11 @@ abstract class ItemOrangeRoughy : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugInputA::class,
         PlugInputB::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPowerOut::class
     ]
 )
@@ -3226,16 +3217,16 @@ abstract class ItemPotatoSeed : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class
     ],
-    outputs = []
+    electricalOutputs = []
 )
 @WaterComponent(
-    inputs = [
+    waterInputs = [
         PlugWaterIn::class
     ],
-    outputs = [
+    waterOutputs = [
         PlugWaterOut::class
     ]
 )
@@ -3247,10 +3238,10 @@ abstract class ItemPoweredWaterPurifier : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPowerOut::class
     ]
 )
@@ -3286,10 +3277,10 @@ abstract class ItemPrototype17 : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class
     ],
-    outputs = []
+    electricalOutputs = []
 )
 abstract class ItemPtzCctvCamera : RustObject(
     nameRes = R.string.item_ptz_cctv_camera,
@@ -3396,12 +3387,12 @@ abstract class ItemRailRoadPlanter : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class,
         PlugSet::class,
         PlugReset::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPowerOut::class
     ]
 )
@@ -3458,12 +3449,12 @@ abstract class ItemRawWolfMeat : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class,
         PlugReset::class,
         PlugLower::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPowerOut::class
     ]
 )
@@ -3500,10 +3491,10 @@ abstract class ItemRedBoomer : RustObject(
 
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPassthroughElectrical::class
     ]
 )
@@ -3564,10 +3555,10 @@ abstract class ItemRevolver : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class
     ],
-    outputs = []
+    electricalOutputs = []
 )
 abstract class ItemRfBroadcaster : RustObject(
     nameRes = R.string.item_rf_broadcaster,
@@ -3583,10 +3574,10 @@ abstract class ItemRfPager : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPowerOut::class
     ]
 )
@@ -3667,11 +3658,11 @@ abstract class ItemRockingChair : RustObject(
 
 @Blueprint
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugRootPower1::class,
         PlugRootPower2::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugCombinedPowerOut::class
     ]
 )
@@ -3792,11 +3783,11 @@ abstract class ItemSamAmmo : RustObject(
 
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class,
         PlugInvertMode::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPassthroughElectrical::class,
         PlugHasTarget::class,
         PlugLowAmmo::class,
@@ -3863,10 +3854,10 @@ abstract class ItemScrap : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPassthroughElectrical::class
     ]
 )
@@ -3884,10 +3875,10 @@ abstract class ItemSecretlabChair : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPowerOut::class
     ]
 )
@@ -4003,10 +3994,10 @@ abstract class ItemSimpleHandmadeSight : RustObject(
 
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPassthroughElectrical::class
     ]
 )
@@ -4028,10 +4019,10 @@ abstract class ItemSingleSignPost : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPassthroughElectrical::class
     ]
 )
@@ -4101,11 +4092,11 @@ abstract class ItemSmallCandleSet : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugForceStart::class,
         PlugForceStop::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPowerOut::class
     ]
 )
@@ -4126,10 +4117,10 @@ abstract class ItemSmallLootBag : RustObject(
 
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPassthroughElectrical::class
     ]
 )
@@ -4159,10 +4150,10 @@ abstract class ItemSmallPresent : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPowerOutput::class
     ]
 )
@@ -4200,10 +4191,10 @@ abstract class ItemSmallWaterBottle : RustObject(
 @Blueprint
 @Deployable
 @WaterComponent(
-    inputs = [
+    waterInputs = [
         PlugWaterIn::class
     ],
-    outputs = [
+    waterOutputs = [
         PlugWaterOut::class
     ]
 )
@@ -4221,10 +4212,10 @@ abstract class ItemSmallWoodenSign : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPowerOut::class
     ]
 )
@@ -4236,12 +4227,12 @@ abstract class ItemSmartAlarm : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class,
         PlugSwitchOn::class,
         PlugSwitchOff::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPowerOut::class
     ]
 )
@@ -4300,12 +4291,12 @@ abstract class ItemSnowJacket : RustObject(
 
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugToggle::class,
         PlugTurnOn::class,
         PlugTurnOff::class
     ],
-    outputs = []
+    electricalOutputs = []
 )
 abstract class ItemSnowMachine : RustObject(
     nameRes = R.string.item_snow_machine,
@@ -4325,10 +4316,10 @@ abstract class ItemSofaPattern : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerAudioIn::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugAudioPassthrough::class
     ]
 )
@@ -4374,10 +4365,10 @@ abstract class ItemSpinningWheel : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPowerOut1::class,
         PlugPowerOut2::class,
         PlugPowerOut3::class
@@ -4405,11 +4396,11 @@ abstract class ItemSpoiledWolfMeat : RustObject(
 
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugTurnOn::class,
         PlugTurnOff::class
     ],
-    outputs = []
+    electricalOutputs = []
 )
 abstract class ItemSpookySpeaker : RustObject(
     nameRes = R.string.item_spooky_speaker,
@@ -4425,10 +4416,10 @@ abstract class ItemSprayCan : RustObject(
 @Blueprint
 @Deployable
 @WaterComponent(
-    inputs = [
+    waterInputs = [
         PlugWaterIn::class
     ],
-    outputs = [
+    waterOutputs = [
         PlugPassthroughWater::class
     ]
 )
@@ -4485,14 +4476,14 @@ abstract class ItemStoneSpear : RustObject(
 @Blueprint
 @Deployable
 @IndustrialComponent(
-    inputs = [
+    industrialInputs = [
         PlugIndustrialIn::class
     ],
-    outputs = [
+    industrialOutputs = [
         PlugIndustrialOut::class
     ]
 )
-@StorageAdaptor
+@ItemStorageAdaptor
 abstract class ItemStorageAdaptor : RustObject(
     nameRes = R.string.item_storage_adaptor,
     imageRes = R.drawable.item_storage_adaptor
@@ -4515,14 +4506,14 @@ abstract class ItemStorageBarrelVertical : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPowerOut::class
     ]
 )
-@StorageMonitor
+@ItemStorageMonitor
 abstract class ItemStorageMonitor : RustObject(
     nameRes = R.string.item_storage_monitor,
     imageRes = R.drawable.item_storage_monitor
@@ -4596,12 +4587,12 @@ abstract class ItemSurvivalFishTrap : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class,
         PlugSwitchOn::class,
         PlugSwitchOff::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPowerOut::class
     ]
 )
@@ -4661,10 +4652,10 @@ abstract class ItemTechTrash : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugCallPassthrough::class
     ]
 )
@@ -4676,10 +4667,10 @@ abstract class ItemTelephone : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class
     ],
-    outputs = []
+    electricalOutputs = []
 )
 abstract class ItemTeslaCoil : RustObject(
     nameRes = R.string.item_tesla_coil,
@@ -4688,8 +4679,8 @@ abstract class ItemTeslaCoil : RustObject(
 
 @Deployable
 @ElectricalComponent(
-    inputs = [],
-    outputs = [
+    electricalInputs = [],
+    electricalOutputs = [
         PlugPowerOutput1::class,
         PlugPowerOutput2::class,
         PlugPowerOutput3::class
@@ -4720,11 +4711,11 @@ abstract class ItemTimedExplosiveCharge : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class,
         PlugToggleOn::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPowerOut::class
     ]
 )
@@ -4882,10 +4873,10 @@ abstract class ItemWaterwellNpcJumpsuit : RustObject(
 @Blueprint
 @Deployable
 @WaterComponent(
-    inputs = [
+    waterInputs = [
         PlugWaterIn::class
     ],
-    outputs = [
+    waterOutputs = [
         PlugWaterOut::class
     ]
 )
@@ -4920,14 +4911,14 @@ abstract class ItemWaterPistol : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerIn::class
     ],
-    outputs = []
+    electricalOutputs = []
 )
 @WaterComponent(
-    inputs = [],
-    outputs = [
+    waterInputs = [],
+    waterOutputs = [
         PlugWaterOutput::class
     ]
 )
@@ -4998,10 +4989,10 @@ abstract class ItemWideWeaponRack : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugPowerOut::class
     ],
-    outputs = []
+    electricalOutputs = []
 )
 abstract class ItemWindTurbine : RustObject(
     nameRes = R.string.item_wind_turbine,
@@ -5177,11 +5168,11 @@ abstract class ItemXlPictureFrame : RustObject(
 @Blueprint
 @Deployable
 @ElectricalComponent(
-    inputs = [
+    electricalInputs = [
         PlugInputA::class,
         PlugInputB::class
     ],
-    outputs = [
+    electricalOutputs = [
         PlugPowerOut::class
     ]
 )

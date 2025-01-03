@@ -1,3 +1,3 @@
 package com.cocot3ro.rustelectricity.annotations
 
-annotation class StorageMonitor
+annotation class ItemStorageAdaptor

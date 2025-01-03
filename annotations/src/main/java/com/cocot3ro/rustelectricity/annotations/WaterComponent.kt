@@ -3,6 +3,6 @@ package com.cocot3ro.rustelectricity.annotations
 import kotlin.reflect.KClass
 
 annotation class WaterComponent(
-    val inputs: Array<KClass<*>>,
-    val outputs: Array<KClass<*>>
+    val waterInputs: Array<KClass<*>>,
+    val waterOutputs: Array<KClass<*>>
 )

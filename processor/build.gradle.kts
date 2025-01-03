@@ -19,7 +19,10 @@ kotlin {
 
 dependencies {
     implementation(project(":annotations"))
+    implementation(kotlin("reflect"))
     implementation(libs.symbol.processing.api)
     implementation(libs.squareup.kotlinpoet)
     implementation(libs.squareup.kotlinpoet.ksp)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.ui)
 }

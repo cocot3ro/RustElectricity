@@ -40,6 +40,7 @@ import androidx.compose.ui.unit.round
 import androidx.compose.ui.util.fastCoerceIn
 import com.cocot3ro.rustelectricity.R
 import com.cocot3ro.rustelectricity.core.pxToDp
+import com.cocot3ro.rustelectricity.domain.model.RustObject
 import com.cocot3ro.rustelectricity.interfaces.IDeployable
 import com.cocot3ro.rustelectricity.ui.theme.DarkBlue
 import kotlin.math.ceil
@@ -170,7 +171,7 @@ fun PlaygroundPanel(
         }
 
         deployables.forEach { deployable: IDeployable ->
-            deployable as RustObjectItem
+            deployable as RustObject
 
             var itemPosition by remember { mutableStateOf(deployable.position) }
 
@@ -204,11 +205,11 @@ fun PlaygroundPanel(
 @Composable
 private fun DrawItem(
     modifier: Modifier,
-    item: RustObjectItem
+    item: RustObject
 ) {
     Image(
         modifier = modifier,
-        bitmap = ImageBitmap.imageResource(item.type.imageRes),
-        contentDescription = stringResource(item.type.nameRes)
+        bitmap = ImageBitmap.imageResource(item.imageRes),
+        contentDescription = stringResource(item.nameRes)
     )
 }

@@ -9,7 +9,7 @@ interface IStorageMonitorAttachable {
 }
 
 interface IStorageAdaptorAttachable {
-    val adaptors: Array<IItemStorageAdaptor?>
+    var adaptors: Array<IItemStorageAdaptor?>
 }
 
 interface IItemDoorController
