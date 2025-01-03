@@ -24,12 +24,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import com.cocot3ro.rustelectricity.domain.model.RustObjectType
+import com.cocot3ro.rustelectricity.domain.model.RustObject
 
 @Composable
 fun PortraitComponentsPanel(
     modifier: Modifier,
-    itemPallet: Array<RustObjectType>
+    itemPallet: Array<RustObject>
 ) {
     LazyRow(modifier = modifier) {
         items(itemPallet) { item ->
@@ -71,7 +71,7 @@ fun PortraitComponentsPanel(
 @Composable
 fun LandscapeComponentsPanel(
     modifier: Modifier,
-    itemPallet: Array<RustObjectType>
+    itemPallet: Array<RustObject>
 ) {
     LazyColumn(modifier = modifier) {
         items(itemPallet) { item ->

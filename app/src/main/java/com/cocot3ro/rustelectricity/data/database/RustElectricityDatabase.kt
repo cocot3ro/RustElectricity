@@ -7,7 +7,6 @@ import com.cocot3ro.rustelectricity.data.database.converter.RustObjectEntityConv
 import com.cocot3ro.rustelectricity.data.database.converter.ToolEntityConverter
 import com.cocot3ro.rustelectricity.data.database.model.SchemaEntity
 
-
 @Database(
     entities = [
         SchemaEntity::class
@@ -18,7 +17,7 @@ import com.cocot3ro.rustelectricity.data.database.model.SchemaEntity
 @TypeConverters(
     value = [
         ToolEntityConverter::class,
-        RustObjectEntityConverter::class,
+        RustObjectEntityConverter::class
     ]
 )
 abstract class RustElectricityDatabase : RoomDatabase()

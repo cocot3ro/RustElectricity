@@ -1,3 +1,5 @@
 package com.cocot3ro.rustelectricity.domain.model
 
-interface IResearcheable
+class RustObjects {
+    companion object;
+}

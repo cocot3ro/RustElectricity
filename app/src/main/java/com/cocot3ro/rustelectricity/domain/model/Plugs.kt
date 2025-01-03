@@ -1,19 +1,23 @@
 package com.cocot3ro.rustelectricity.domain.model
 
-import com.cocot3ro.rustelectricity.generated.domain.model.ItemHoseTool
-import com.cocot3ro.rustelectricity.generated.domain.model.ItemPipeTool
-import com.cocot3ro.rustelectricity.generated.domain.model.ItemWireTool
+import com.cocot3ro.rustelectricity.interfaces.IElectricalPlug
+import com.cocot3ro.rustelectricity.interfaces.IElectricalTool
+import com.cocot3ro.rustelectricity.interfaces.IIndustrialPlug
+import com.cocot3ro.rustelectricity.interfaces.IIndustrialTool
+import com.cocot3ro.rustelectricity.interfaces.IWaterPlug
+import com.cocot3ro.rustelectricity.interfaces.IWaterTool
 
-sealed interface IPlug<T : ITool<*>> { var pluggedTo: T? }
+abstract class WaterPlug(
+    override val nameRes: Int,
+    override var pluggedTo: IWaterTool? = null
+) : IWaterPlug
 
-data class WaterPlug(
-    override var pluggedTo: ItemHoseTool? = null
-) : IPlug<ItemHoseTool>
+abstract class ElectricalPlug(
+    override val nameRes: Int,
+    override var pluggedTo: IElectricalTool? = null
+) : IElectricalPlug
 
-data class ElectricalPlug(
-    override var pluggedTo: ItemWireTool? = null
-) : IPlug<ItemWireTool>
-
-data class IndustrialPlug(
-    override var pluggedTo: ItemPipeTool? = null
-) : IPlug<ItemPipeTool>
+abstract class IndustrialPlug(
+    override val nameRes: Int,
+    override var pluggedTo: IIndustrialTool? = null
+) : IIndustrialPlug

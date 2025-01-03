@@ -3,18 +3,13 @@ package com.cocot3ro.rustelectricity.domain.model
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.cocot3ro.rustelectricity.R
+import com.cocot3ro.rustelectricity.interfaces.IBlueprint
 
 sealed interface IFilter<T> { val filter: T }
 
-data class SimpleFilter(override val filter: RustObjectType) : IFilter<RustObjectType>
+data class SimpleFilter(override val filter: RustObject) : IFilter<RustObject>
 data class CategoryFilter(override val filter: FilterCategory) : IFilter<FilterCategory>
-data class BlueprintFilter(override val filter: RustObjectType) : IFilter<RustObjectType> {
-    init {
-        require(filter::class.annotations.any { it is IResearcheable }) {
-            "BlueprintFilter can only be used with Researcheable objects"
-        }
-    }
-}
+data class BlueprintFilter(override val filter: IBlueprint) : IFilter<IBlueprint>
 
 enum class FilterCategory(
     @DrawableRes

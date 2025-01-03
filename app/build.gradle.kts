@@ -77,8 +77,8 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     implementation(kotlin("reflect"))
-
     implementation(project(":annotations"))
+
     ksp(project(":processor"))
 
     // Firebase

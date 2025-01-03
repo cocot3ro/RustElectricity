@@ -1,4 +1,4 @@
-package com.cocot3ro.rustelectricity.domain.model
+package com.cocot3ro.rustelectricity.interfaces
 
 import androidx.compose.ui.geometry.Offset
 
@@ -8,7 +8,6 @@ sealed interface ITool<T : IComponent> {
     var plugB: T?
 
     var positions: MutableList<Offset>
-
 }
 
 interface IElectricalTool : ITool<IElectricalComponent>
